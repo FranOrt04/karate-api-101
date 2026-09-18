@@ -14,53 +14,43 @@ Validar un JSON con igualdad, `contains` y un esquema de tipos.
 
 ### En qué consiste
 
-Ejecutas `match.feature` y escribes el esquema de `/usuarios/1`.
+Creas `features/m04/match.feature` (tag `@m04 @validaciones`).
 
-### 1 — Correr match
+### 1 — Background y igualdad
 
-**Acción:**
+**Acción:** Background: GET `productos/1` hasta `status 200`. Primer Scenario: `nombre == 'Teclado'`, `precio == 25`, `id == '#number'`.
 
-```bash
-mvn test -Dkarate.options="--tags @validaciones"
-```
+**Resultado esperado:** `@validaciones` → 1 verde.
 
-**Por qué:** Tres escenarios sobre el mismo GET de Teclado.
+### 2 — contains y esquema
 
-**Resultado esperado:** verde.
+**Acción:** Scenario con `match response contains { id: 1, categoria: 'periferico' }`. Otro Scenario donde `response ==` un objeto con exactamente `id`, `nombre`, `precio`, `categoria`, `stock` y marcadores de tipo.
 
-### 2 — Romper el esquema
+**Por qué:** El esquema rompe si el mock añade un campo. Es deliberado.
 
-**Acción:** En el Scenario *El documento completo respeta el esquema*, añade un campo inventado al objeto esperado, por ejemplo `color: '#string'`. Relanza.
+**Resultado esperado:** 3 verdes.
 
-**Por qué:** `match response == { ... }` es estricto en claves.
+### 3 — Romper el esquema
 
-**Resultado esperado:** fallo. Karate indica que `color` no está en el actual. Quita `color` y vuelve a verde.
+**Acción:** Añade `color: '#string'` al esquema, relanza, mira el fallo, quítalo.
 
-### 3 — Esquema de usuaria
+**Resultado esperado:** rojo y otra vez verde.
 
-**Acción:** Crea un Scenario nuevo en el mismo feature (o uno nuevo) que haga GET `usuarios/1` y valide:
+### 4 — Esquema de usuaria
 
-```text
-id number, nombre string, rol string, activo boolean
-```
+**Acción:** Un Scenario que haga GET `usuarios/1` (vuelve a poner `url baseUrl` y el `path`; el Background se quedó en productos) y valide `id` number, `nombre` string, `rol` string, `activo` boolean.
 
-**Por qué:** El mismo patrón cambia de recurso. `activo` es `#boolean`.
-
-**Resultado esperado:** verde con el esquema de Ana.
+**Resultado esperado:** 4 verdes.
 
 ## Comprueba tu entendimiento
 
-**contains vs ==**
-
-`match response contains { nombre: 'Teclado' }` frente a listar las cinco claves con `==`.
-
-→ `contains` ignora el resto de campos. `==` con objeto no.
+`contains` vs `==` con objeto: el primero ignora claves de más; el segundo no.
 
 ## Reto
 
-### 1 — Precio como rango mental
+### 1 — Precio positivo
 
-No hay matcher de «precio > 0» en una sola palabra en 101. Usa un `match` de tipo y un `assert` JS:
+`match` de tipo + `assert response.precio > 0`. Extra en `example`: `examples/m04-predicados.feature`.
 
 <details>
 <summary>Ver solución</summary>
@@ -70,7 +60,7 @@ And match response.precio == '#number'
 And assert response.precio > 0
 ```
 
-`assert` evalúa JavaScript. Úsalo poco: `match` se lee mejor en el informe.
+Referencia: `example` → `features/m04/match.feature`.
 
 </details>
 
@@ -78,5 +68,5 @@ And assert response.precio > 0
 
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
-| Fallo `expected: #string, actual: 25` | Marcaste `precio` como `'#string'` | `'#number'` |
-| El Background ya hizo GET de producto y tú pides usuario | El `path` del Background se queda pegado | En el Scenario de usuario: `Given url baseUrl` otra vez y `path 'usuarios', 1` |
+| `precio` como `'#string'` | Marcador equivocado | `'#number'` |
+| El GET de usuario sigue yendo a productos | El path del Background se queda | `Given url baseUrl` y `path 'usuarios', 1` en ese Scenario |

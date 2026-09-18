@@ -6,77 +6,79 @@
 
 ### Objetivo
 
-Leer un feature sin HTTP, ejecutarlo por tag y distinguir un `match` de valor de un `match` de tipo.
+Crear un feature sin HTTP, ejecutarlo por tag y distinguir un `match` de valor de un `match` de tipo.
 
 ### Prerrequisitos
 
-- M01-01 hecho (`mvn test -Dkarate.options="--tags @smoke"` en verde).
+- M01-01 hecho (`@smoke` en verde).
 
 ### En qué consiste
 
-Abres `dsl.feature`, lo lanzas, provocas un fallo a propósito y añades un escenario.
+Creas `features/m02/dsl.feature`, lo lanzas, provocas un fallo a propósito y añades un escenario.
 
-### 1 — Abrir el feature
+### 1 — Crear el fichero
 
-**Acción:** Abre `src/test/java/features/m02/dsl.feature`.
+**Acción:** Crea la carpeta `src/test/java/features/m02/` y el fichero `dsl.feature`. Primera línea: tag `@m02`. `Feature` con el título que quieras. Un `Background` que defina `iva = 0.21` y una función `conIva` que multiplique el precio por `(1 + iva)`.
 
-**Por qué:** Es el único feature etiquetado `@m02`. Todo lo que practicas aquí cabe en variables y `match`.
+**Por qué:** El Background se reutiliza en todos los Scenario del fichero. La función la usarás en el reto.
 
-**Resultado esperado:** ves `Background` con `iva` y dos `Scenario`.
+**Resultado esperado:** el fichero existe y todavía **no** tiene Scenario (o tiene uno a medias). `mvn test -Dkarate.options="--tags @m02"` puede decir 0 escenarios.
 
-### 2 — Ejecutar solo M02
+### 2 — Scenario de variables
 
-**Acción:**
+**Acción:** Añade un Scenario que declare:
+
+- un string `nombre` (`Teclado`)
+- un número `precio` (`25`)
+- un array `etiquetas` de dos strings
+- un objeto `producto` con `nombre`, `precio` y `stock`
+
+Haz `match` de igualdad sobre `nombre` y `precio`, de tipo sobre el array (`#array`, `#[2]`), el objeto (`#object`) y `stock` (`#number`).
+
+**Por qué:** Es el vocabulario que luego aplicarás al JSON de la API.
+
+**Resultado esperado:**
 
 ```bash
 mvn test -Dkarate.options="--tags @m02"
 ```
 
-**Por qué:** Sin tag, Maven corre todo el curso. En clase interesa un módulo cada vez.
-
-**Resultado esperado:** 2 escenarios, `failed: 0`.
+`failed: 0` con 1 escenario.
 
 ### 3 — Ver un match fallar
 
-**Acción:** En el primer Scenario cambia `match nombre == 'Teclado'` por `match nombre == 'Raton'`. Guarda y vuelve a lanzar el comando del paso 2.
+**Acción:** Cambia el match de `nombre` a `'Raton'`, lanza `@m02`, mira el informe en rojo, y restaura `'Teclado'`.
 
-**Por qué:** El informe HTML es útil cuando **falla**. Karate enseña el valor actual y el esperado.
+**Por qué:** El informe enseña actual vs esperado. En clase interesa verlo **antes** de los GET.
 
-**Resultado esperado:** `BUILD FAILURE`. En el report, el paso `match nombre` en rojo; actual `Teclado`.
+**Resultado esperado:** `BUILD FAILURE` y después otra vez verde.
 
-**Acción (después):** Devuelve `'Teclado'` y re-ejecuta hasta verde.
+### 4 — Marcadores de tipo de más
 
-### 4 — Marcadores de tipo
+**Acción:** En el mismo Scenario añade `match producto.nombre == '#string'` y `match etiquetas[0] == '#string'`. Relanza.
 
-**Acción:** En el mismo Scenario, debajo de `match producto.stock == '#number'`, añade:
-
-```gherkin
-And match producto.nombre == '#string'
-And match etiquetas[0] == '#string'
-```
-
-Guarda y lanza `@m02` otra vez.
-
-**Por qué:** `'#string'` y `'#number'` no son literales: son el esquema mínimo. Si `stock` fuera `"10"` (string), este match fallaría.
+**Por qué:** `'#string'` no es el literal de la palabra string.
 
 **Resultado esperado:** sigue verde.
 
 ## Comprueba tu entendimiento
 
-**Tag vs classpath**
+**Classpath**
 
 `mvn test -Dkarate.options="classpath:features/m02/dsl.feature"`
 
-→ Mismo resultado que `--tags @m02` en este repo (solo hay un feature m02).
+→ Equivale a `--tags @m02` mientras solo tengas este feature en m02.
 
 ## Reto
 
-### 1 — Precio con IVA de un producto a 25
+### 1 — Función `conIva(25)`
 
-Añade un Scenario que use `conIva(25)` y compruebe el resultado.
+Añade un segundo Scenario que llame a `conIva(25)` y compruebe el resultado.
 
 <details>
 <summary>Ver solución</summary>
+
+`25 * 1.21 = 30.25`.
 
 ```gherkin
 Scenario: IVA de un teclado
@@ -84,7 +86,7 @@ Scenario: IVA de un teclado
   Then match resultado == 30.25
 ```
 
-`25 * 1.21 = 30.25`. Karate compara números con igualdad JS.
+Si quieres ver una versión ya montada (con `conIva(100) == 121`), rama `example` → `src/test/java/features/m02/dsl.feature`. Extra de regex/assert: `src/test/java/examples/m02-expresiones.feature`.
 
 </details>
 
@@ -92,6 +94,6 @@ Scenario: IVA de un teclado
 
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
-| `match` dice que `'#string'` no es igual a `Teclado` | Faltan las comillas del marcador o usaste `=` en vez de `==` | `match x == '#string'` |
-| El tag `@m02` no corre nada | Guardaste el feature fuera de `features/` | Deja el fichero en `src/test/java/features/m02/` |
-| Siguen corriendo todos los módulos | Olvidaste `-Dkarate.options` | Copia el comando del paso 2 |
+| El fichero ya existía completo | Estás en `example` | Vuelve a `main` |
+| `match` trata `'#string'` como texto vs `Teclado` | Faltan comillas del marcador o usaste `=` | `match x == '#string'` |
+| `@m02` no corre nada | El feature no está bajo `features/` | `src/test/java/features/m02/dsl.feature` |

@@ -6,7 +6,7 @@
 
 ### Objetivo
 
-Repetir el mismo GET con tres fuentes de datos: tabla, CSV y JSON.
+Repetir el mismo GET con tres fuentes: tabla, CSV y JSON.
 
 ### Prerrequisitos
 
@@ -14,58 +14,42 @@ Repetir el mismo GET con tres fuentes de datos: tabla, CSV y JSON.
 
 ### En qué consiste
 
-Ejecutas los dos features `@m06` y amplías el CSV.
+Creas `features/m06/` con dos features y dos ficheros de datos.
 
 ### 1 — Tabla embebida
 
-**Acción:**
+**Acción:** `tabla.feature` tags `@m06 @ddt-tabla`. Outline GET `productos/<id>` 200, `nombre` y `categoria`. Filas: 1 Teclado periferico, 2 Monitor pantalla, 3 Webcam periferico.
 
-```bash
-mvn test -Dkarate.options="--tags @ddt-tabla"
-```
-
-**Por qué:** Tres filas, tres requests a `/productos/1|2|3`.
-
-**Resultado esperado:** 3 escenarios (el Outline se expande).
+**Resultado esperado:** `mvn test -Dkarate.options="--tags @ddt-tabla"` → 3 filas verdes.
 
 ### 2 — CSV y JSON
 
-**Acción:**
+**Acción:** Crea `productos.csv` (`id,nombre,precio` con los tres productos). Crea `casos.json` (array de `{ id, nombre }` al menos para 1 y 2). `ficheros.feature` tags `@m06 @ddt-ficheros` con dos Outlines: uno `read('productos.csv')` comprobando precio; otro `read('casos.json')` comprobando nombre.
 
-```bash
-mvn test -Dkarate.options="--tags @ddt-ficheros"
-```
-
-**Por qué:** Misma idea, datos fuera del Gherkin.
-
-**Resultado esperado:** 3 filas del CSV + 2 del JSON, todas verdes.
+**Resultado esperado:** `@ddt-ficheros` → 3 + 2 verdes.
 
 ### 3 — Romper una fila
 
-**Acción:** En `productos.csv` cambia el precio del Monitor de `180` a `1`. Relanza `@ddt-ficheros`.
+**Acción:** En el CSV pon precio del Monitor a `1`, relanza, mira **solo** esa fila roja, restaura `180`.
 
-**Por qué:** El informe marca **solo** esa fila.
-
-**Resultado esperado:** fallo en id 2. Restaura `180`.
+**Resultado esperado:** el resto de filas siguen verdes.
 
 ## Comprueba tu entendimiento
 
-**Comillas en precio**
-
-Si en la tabla embebida escribes `And match response.precio == '<precio>'` (con comillas) y el valor es número…
-
-→ Karate compara string `"25"` con número `25` y falla. Los números van **sin** comillas en el `match`.
+`match response.precio == '<precio>'` (con comillas) compara string `"25"` con número `25` y falla.
 
 ## Reto
 
-### 1 — Una fila más
+### 1 — Fila id 4
 
-El mock solo tiene ids 1, 2 y 3. Añadir id 4 al CSV **debe** fallar. Hazlo, mira el 404, y quita la fila.
+Añádela al CSV. Debe fallar (el mock solo tiene 1–3). Quítala.
 
 <details>
 <summary>Ver solución</summary>
 
-El Outline espera `status 200`. Un id 4 recibe 404 → esa fila roja. Para datos 404 haría falta otro Outline (o una columna `status`). En 101 nos quedamos con el catálogo conocido.
+El Outline espera 200; id 4 es 404. Para mezclar status haría falta una columna `status`.
+
+Referencia: `example` → `features/m06/`. Extra: `examples/m06-usuarios-outline.feature`.
 
 </details>
 
@@ -73,6 +57,6 @@ El Outline espera `status 200`. Un id 4 recibe 404 → esa fila roja. Para datos
 
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
-| `read` no encuentra el CSV | Lo pusiste en otra carpeta | Junto a `ficheros.feature` |
-| Todas las filas fallan | Cabecera CSV distinta de `<placeholders>` | `id,nombre,precio` tal cual |
-| JSON no expande | No es un array de objetos | Mira `casos.json`: lista `[ {...}, {...} ]` |
+| `read` no encuentra el CSV | Otra carpeta | Junto a `ficheros.feature` |
+| Todas las filas fallan | Cabecera ≠ placeholders | `id,nombre,precio` |
+| JSON no expande | No es un array | `[ {...}, {...} ]` |

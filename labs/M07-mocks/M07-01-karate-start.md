@@ -6,68 +6,50 @@
 
 ### Objetivo
 
-Levantar un mock propio y probarlo sin la API de tienda.
+Escribir un mock propio y un feature que lo arranca. No uses `baseUrl` de la tienda.
 
 ### Prerrequisitos
 
-- El resto de módulos en verde (`mvn test`).
+- M06 hecho.
 
 ### En qué consiste
 
-Ejecutas `@m07`, miras `pathMatches` y añades un POST de pedido.
+Creas `mock/pedidos.feature` y `features/m07/pedidos.feature`.
 
-### 1 — Correr pedidos
+### 1 — El mock
 
-**Acción:**
+**Acción:** Crea `src/test/java/mock/pedidos.feature` (junto a `tienda.feature`, **no** bajo `features/`). `configure cors = true`. Un Scenario `pathMatches('/pedidos/{id}') && methodIs('get')` que responda `{ id: el path param, estado: 'enviado', items: 2 }`. Otro `pathMatches('/pedidos') && methodIs('post')` con `201` y `{ id: '88', estado: 'creado' }`. Último Scenario sin condición: `404` y `{ mensaje: 'Pedido no mockeado' }`.
 
-```bash
-mvn test -Dkarate.options="--tags @m07"
-```
+**Por qué:** Si el mock vive bajo `features/`, el runner lo ejecuta como test y los `pathMatches` no tienen sentido.
 
-**Por qué:** Un solo Scenario de cliente contra un mock que **tú** controlas.
+**Resultado esperado:** el fichero está en `mock/`. Todavía no hay test cliente.
 
-**Resultado esperado:** 200, `estado == 'enviado'`, `id == '77'`.
+### 2 — El feature cliente
 
-### 2 — Leer el mock
+**Acción:** Crea `features/m07/pedidos.feature` tag `@m07`. Background: `def mock = karate.start('classpath:mock/pedidos.feature')` y `url 'http://localhost:' + mock.port`. Scenario GET `pedidos/77` → 200, `id == '77'`, `estado == 'enviado'`. Scenario POST `pedidos` → 201 y `estado == 'creado'`.
 
-**Acción:** Abre `src/test/java/mock/pedidos.feature`. Localiza `pathMatches` y la asignación de `response`.
+**Resultado esperado:** `mvn test -Dkarate.options="--tags @m07"` → 2 verdes.
 
-**Por qué:** Ahí está el contrato falso. Cambiar el mock cambia el test.
+### 3 — Suite completa
 
-**Resultado esperado:** ves el Scenario catch-all `404`.
+**Acción:** `mvn test` (todo lo que has escrito en el curso).
 
-### 3 — curl interno (opcional)
-
-**Acción:** No hace falta para el lab. Si quieres ver el puerto, el log de Karate imprime el mock. Desde **otra** terminal del Codespace, `curl` a `localhost:<puerto>/pedidos/77` solo funciona **mientras el test está vivo** (casi nunca). Mejor quédate con el informe.
-
-**Por qué:** El mock vive lo que dura la ejecución. No es un servicio de aula permanente.
-
-**Resultado esperado:** no dependas de curl para dar el módulo por hecho.
-
-### 4 — POST en el mock
-
-El mock de pedidos **ya incluye** un POST `/pedidos` (201, `estado: creado`) y `pedidos.feature` lo cubre. Lee ambos ficheros y relanza `@m07`: deben pasar 2 escenarios.
-
-Si quieres practicar, cambia el `estado` del POST a `pendiente` en el mock y en el match — y vuelve a dejarlo como está.
+**Resultado esperado:** 0 failed. Cierre del laboratorio.
 
 ## Comprueba tu entendimiento
 
-**Suite completa**
-
-`mvn test`
-
-→ Todos los tags en verde, incluido `@m07`. Es el cierre del curso.
+GET `foo` contra el puerto del mock de pedidos → 404 del catch-all. Extra en `example`: `examples/m07-catch-all.feature`.
 
 ## Reto
 
-### 1 — 404 de pedido
+### 1 — GET con id no es catch-all
 
-Haz GET `pedidos/no-aplica`… espera: `pathMatches('/pedidos/{id}')` **sí** casa. El catch-all no se usa para GET con id.
+`pathMatches('/pedidos/{id}')` casa **cualquier** id. Para un 404 de pedido concreto hay que ramificar en el mock (`id == '0'` → 404). El catch-all cubre rutas como `/foo`.
 
 <details>
 <summary>Ver solución</summary>
 
-Para un 404 real en GET, el mock tiene que ramificar (por ejemplo `pathParams.id == '0'` → 404). El catch-all cubre métodos/rutas no definidos (un GET `/foo`). Prueba `Given path 'foo'` y `status 404`.
+Referencia: `example` → `mock/pedidos.feature` y `features/m07/pedidos.feature`.
 
 </details>
 
@@ -75,6 +57,7 @@ Para un 404 real en GET, el mock tiene que ramificar (por ejemplo `pathParams.id
 
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
-| `match id == 77` falla | El mock devuelve string `'77'` | `== '77'` o `parseInt` en el mock |
-| Connection refused | `url baseUrl` en vez del puerto del `karate.start` | `url 'http://localhost:' + mock.port` |
-| El POST cae en 404 | El Scenario POST va **después** del catch-all vacío | En Karate el catch-all es el último `Scenario:` sin condición; déjalo el último |
+| `match id == 77` falla | El mock devuelve string `'77'` | `== '77'` |
+| Connection refused | Usaste `baseUrl` de la tienda | `url 'http://localhost:' + mock.port` |
+| El POST cae en 404 | Catch-all antes del POST | El `Scenario:` vacío, el último |
+| El mock se ejecuta como test | Está bajo `features/` | Déjalo en `mock/` |

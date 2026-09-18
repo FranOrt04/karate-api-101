@@ -29,17 +29,16 @@ En este módulo **no hay HTTP**. Sirve para coger el DSL antes de mezclarlo con 
 
 ## Demostración guiada
 
-> Recorrido que hace el formador en vivo. Tono descriptivo, sin imperativos.
+> Recorrido en la rama [`example`](https://github.com/my-it-labs/karate-api-101/tree/example).
 
-1. Al abrir `src/test/java/features/m02/dsl.feature` se ve un `Background` con `iva` y una función `conIva`.
-2. El primer Scenario declara un string, un número, un array y un objeto. Cada `match` comprueba valor o tipo.
-3. El segundo Scenario llama a `conIva(100)` y espera `121`.
-4. `mvn test -Dkarate.options="--tags @m02"` corre solo este feature. El informe muestra dos escenarios en verde.
+1. En `src/test/java/features/m02/dsl.feature` hay un `Background` con `iva` y `conIva`, un Scenario de variables/`match` y otro que llama a la función.
+2. `mvn test -Dkarate.options="--tags @m02"` deja dos escenarios verdes.
+3. Si el grupo pide más DSL: `src/test/java/examples/m02-expresiones.feature` (`#regex`, `assert`, función en bloque).
 
 ## Ahora practica tú
 
 | Lab | Título | Qué harás |
 |-----|--------|-----------|
-| M02-01 | [DSL, variables y match](M02-01-dsl-variables-match.md) | Ejecutar el feature, romper un match y ampliarlo |
+| M02-01 | [DSL, variables y match](M02-01-dsl-variables-match.md) | **Crear** `dsl.feature` desde cero |
 
 → Empieza por **[M02-01 — DSL, variables y match](M02-01-dsl-variables-match.md)**.

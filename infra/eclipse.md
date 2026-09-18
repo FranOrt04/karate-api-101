@@ -21,7 +21,7 @@ El curso se imparte en **Codespaces + VS Code**. Esta página es solo si tu equi
 1. Abre `src/test/java/runners/KarateTest.java`.
 2. Clic derecho → **Run As → JUnit Test**.
 
-Equivale a `mvn test`. El informe queda en `target/karate-reports/karate-summary.html`. Ábrelo con un navegador del sistema.
+Equivale a `mvn test` **cuando ya hayas escrito features**. En `main` la carpeta empieza vacía: el primer test es el smoke de M01.
 
 ## Tags
 

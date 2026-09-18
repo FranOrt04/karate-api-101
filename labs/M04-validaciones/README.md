@@ -13,33 +13,33 @@
 
 ## Teoría
 
-Hasta ahora el `match` comprobaba un campo. En APIs reales no quieres listar todos los valores literales: quieres la **forma**.
+Hasta ahora el `match` comprobaba un campo. En APIs reales quieres la **forma**.
 
 | Expresión | Significado |
 |-----------|-------------|
 | `match response.nombre == 'Teclado'` | Valor exacto |
 | `match response contains { id: 1 }` | Subconjunto de campos |
 | `match response == { id: '#number', nombre: '#string', ... }` | Esquema del objeto |
-| `match each response == { ... }` | El mismo esquema para **cada** elemento de la lista |
+| `match each response == { ... }` | El mismo esquema para **cada** elemento |
 | `match response == '#[3]'` | Array de longitud 3 |
 | `match response[*].id contains 2` | JSONPath: la lista de ids incluye 2 |
 
 > [!NOTE]
-> `contains` no exige que el objeto tenga *solo* esos campos. El esquema con `== { ... }` sí exige **exactamente** esas claves (salvo que uses `#ignore` / `##...` para opcionales; en 101 no hace falta).
+> `contains` no exige que el objeto tenga *solo* esos campos. El esquema con `== { ... }` sí exige **exactamente** esas claves.
 
 ## Demostración guiada
 
-> Recorrido que hace el formador en vivo. Tono descriptivo, sin imperativos.
+> Rama [`example`](https://github.com/my-it-labs/karate-api-101/tree/example).
 
-1. `features/m04/match.feature` reutiliza el GET `/productos/1` en el Background. Los Scenarios solo asertan.
-2. El esquema del producto lista cinco campos. Si el mock añadiera `color`, este match rompería: es deliberado.
-3. `listas.feature` pide el catálogo y aplica `match each`. `response[*].categoria contains 'pantalla'` localiza el Monitor sin un `for`.
+1. `features/m04/match.feature`: GET `/productos/1` en el Background; igualdad, `contains`, esquema de cinco campos.
+2. `features/m04/listas.feature`: `match each` + `response[*].categoria`.
+3. Extra: `examples/m04-predicados.feature` (`#? _ > 0`).
 
 ## Ahora practica tú
 
 | Lab | Título | Qué harás |
 |-----|--------|-----------|
-| M04-01 | [match y esquema](M04-01-match-y-esquema.md) | Esquema de un producto y de un usuario |
-| M04-02 | [Listas y JSONPath](M04-02-listas-jsonpath.md) | `match each` y un path |
+| M04-01 | [match y esquema](M04-01-match-y-esquema.md) | **Crear** `match.feature` |
+| M04-02 | [Listas y JSONPath](M04-02-listas-jsonpath.md) | **Crear** `listas.feature` |
 
 → Empieza por **[M04-01 — match y esquema](M04-01-match-y-esquema.md)**.

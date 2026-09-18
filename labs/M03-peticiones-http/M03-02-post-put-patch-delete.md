@@ -6,7 +6,7 @@
 
 ### Objetivo
 
-Enviar un cuerpo JSON y cubrir los cuatro verbos de escritura.
+Escribir los cuatro verbos de escritura y comprobar que el mock **no persiste**.
 
 ### Prerrequisitos
 
@@ -14,70 +14,54 @@ Enviar un cuerpo JSON y cubrir los cuatro verbos de escritura.
 
 ### En qué consiste
 
-Ejecutas `write.feature` y observas que el mock **no persiste** (el POST no crea un GET posterior).
+Creas `features/m03/write.feature` (tags `@m03 @http-write`).
 
-### 1 — Correr los writes
+### 1 — POST
+
+**Acción:** Background con `url baseUrl` y `header Content-Type = 'application/json'`. Scenario POST a `productos` con `{ nombre: 'Dock USB', precio: 60, categoria: 'periferico', stock: 5 }`. Espera `201`, `id == 99`, `nombre == 'Dock USB'`.
+
+**Por qué:** El mock siempre asigna id 99. Asera el **response del POST**, no un GET posterior.
+
+**Resultado esperado:** `@http-write` → 1 verde.
+
+### 2 — PUT, PATCH, DELETE
 
 **Acción:**
 
-```bash
-mvn test -Dkarate.options="--tags @http-write"
-```
+- PUT `productos/1` con un teclado mecánico (precio 90, stock 3) → 200 y el nombre nuevo.
+- PATCH `productos/3` solo `{ stock: 1 }` → 200, `stock == 1`, `id == 3`.
+- DELETE `productos/2` → **204**.
 
-**Por qué:** Cuatro escenarios: POST 201, PUT 200, PATCH stock, DELETE 204.
+**Resultado esperado:** 4 escenarios verdes.
 
-**Resultado esperado:** `failed: 0`.
+### 3 — El catálogo no cambió
 
-### 2 — Ver el cuerpo del POST
+**Acción:** Lanza `@http-get` otra vez (sin tocar `write.feature`).
 
-**Acción:** En el informe, abre *Crear un producto* y mira el request body y el response `id: 99`.
+**Por qué:** El `Background` del mock recarga la lista en cada petición.
 
-**Por qué:** El mock siempre asigna id 99. No es una base de datos.
-
-**Resultado esperado:** el response copia `nombre` y `precio` del request.
-
-### 3 — Comprobar que no persiste
-
-**Acción:** No añadas todavía código. Lanza:
-
-```bash
-mvn test -Dkarate.options="--tags @http-get"
-```
-
-y mira que `/productos` sigue teniendo **3** elementos.
-
-**Por qué:** Un error típico de este curso es esperar que el POST del mock se vea en el GET. El catálogo del mock se reinicia en cada petición (lista fija en el `Background` del mock).
-
-**Resultado esperado:** el listado sigue siendo Teclado, Monitor, Webcam.
+**Resultado esperado:** el listado sigue teniendo 3 productos (Teclado, Monitor, Webcam).
 
 ## Comprueba tu entendimiento
 
 **Header**
 
-En el POST, quita la línea `And header Content-Type = 'application/json'` del Background y lanza `@http-write`.
+Quita el `Content-Type` del Background, lanza `@http-write`, y vuélvelo a poner.
 
-→ En este mock suele seguir funcionando porque Karate envía JSON igual. Vuelve a dejar el header: es el hábito correcto contra APIs reales.
+→ En este mock suele colar. En APIs reales, no.
 
 ## Reto
 
-### 1 — POST sin precio
+### 1 — POST sin `precio`
 
-Añade un Scenario que haga POST `{ nombre: 'Cable', categoria: 'periferico', stock: 20 }` **sin** `precio`, y decide qué asertas.
+Cuerpo `{ nombre: 'Cable', categoria: 'periferico', stock: 20 }`. ¿Qué pones en el `match` de `precio`?
 
 <details>
 <summary>Ver solución</summary>
 
-El mock copia `body.precio` (quedará `null`). Un match razonable:
+`match response.precio == '#null'` y `status 201`.
 
-```gherkin
-Scenario: POST sin precio
-  And path 'productos'
-  And request { nombre: 'Cable', categoria: 'periferico', stock: 20 }
-  When method post
-  Then status 201
-  And match response.nombre == 'Cable'
-  And match response.precio == '#null'
-```
+Referencia: rama `example` → `src/test/java/features/m03/write.feature`.
 
 </details>
 
@@ -85,6 +69,5 @@ Scenario: POST sin precio
 
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
-| `pathMatches POST` no entra | Olvidaste `method post` / usaste GET | `When method post` |
-| Esperabas 4 productos tras el POST | El mock no guarda estado | Asera el **response del POST**, no un GET posterior |
-| DELETE falla con 200 | Aserción `status 200` | Este mock responde **204** |
+| Esperabas 4 productos tras el POST | El mock no guarda estado | Asera el response del POST |
+| DELETE con 200 | Este mock responde 204 | `status 204` |

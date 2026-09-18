@@ -14,7 +14,7 @@
 
 ## Teoría
 
-El Background de los features HTTP hace `Given url baseUrl`. `baseUrl` lo inyecta `karate-config.js` hacia el mock de tienda. Tú no pones `https://jsonplaceholder...`: el laboratorio no depende de internet.
+El Background de los features HTTP hace `Given url baseUrl`. `baseUrl` lo inyecta `karate-config.js` hacia el mock de tienda.
 
 | Paso | Efecto |
 |------|--------|
@@ -26,24 +26,25 @@ El Background de los features HTTP hace `Given url baseUrl`. `baseUrl` lo inyect
 | `status 201` | Aserción del código |
 
 > [!WARNING]
-> `path '/productos'` (con `/` inicial) **rompe** la concatenación y suele producir `//productos` o ignorar el host. Usa `path 'productos'`.
+> `path '/productos'` (con `/` inicial) **rompe** la concatenación. Usa `path 'productos'`.
 
-`GET` no lleva `request`. `DELETE` en este mock responde `204` y cuerpo vacío.
+`GET` no lleva `request`. `DELETE` en este mock responde `204` y cuerpo vacío. El mock **no persiste**: un POST no cambia el GET posterior.
+
+Catálogo fijo: id 1 Teclado (periferico, 25), id 2 Monitor (pantalla, 180), id 3 Webcam (periferico, 45). Usuaria id 1 Ana (ops); id 2 Luis (dev).
 
 ## Demostración guiada
 
-> Recorrido que hace el formador en vivo. Tono descriptivo, sin imperativos.
+> Rama [`example`](https://github.com/my-it-labs/karate-api-101/tree/example).
 
-1. En `features/m03/get.feature` el Background fija `url baseUrl`. El primer Scenario lista `/productos` y espera tres elementos.
-2. El Scenario del path `productos, 2` devuelve el Monitor. El de `param categoria` deja dos periféricos. El id `999` responde 404.
-3. En `write.feature` un POST crea `Dock USB` con id `99` (el mock no persiste: es una respuesta fija). PUT / PATCH / DELETE cubren el resto de verbos.
-4. `mvn test -Dkarate.options="--tags @m03"` ejecuta ambos features.
+1. `features/m03/get.feature`: listado, path, query param, 404 del id 999.
+2. `features/m03/write.feature`: POST id 99 fijo, PUT, PATCH de stock, DELETE 204.
+3. Extra: `examples/m03-cabeceras.feature` (`header` / `headers`).
 
 ## Ahora practica tú
 
 | Lab | Título | Qué harás |
 |-----|--------|-----------|
-| M03-01 | [GET, path y params](M03-01-get-path-params.md) | Leer y ampliar los GET |
-| M03-02 | [POST PUT PATCH DELETE](M03-02-post-put-patch-delete.md) | Escribir verbos y un header |
+| M03-01 | [GET, path y params](M03-01-get-path-params.md) | **Crear** `get.feature` |
+| M03-02 | [POST PUT PATCH DELETE](M03-02-post-put-patch-delete.md) | **Crear** `write.feature` |
 
 → Empieza por **[M03-01 — GET, path y params](M03-01-get-path-params.md)**.

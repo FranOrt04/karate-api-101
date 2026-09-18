@@ -9,37 +9,37 @@
 
 - Un mock de Karate **es un feature** con `pathMatches` / `methodIs`.
 - `karate.start('...feature')` devuelve `{ port }`.
-- El mock de tienda del curso (`mock/tienda.feature`) vs un mock **ad hoc** en el propio lab.
+- El mock de tienda del curso vs un mock **ad hoc** de pedidos que escribes tú.
 
 ## Teoría
 
-Desde M01 los tests hablan con la tienda que arranca `karate-config.js`. Eso es un mock **de suite**. En M07 arrancas otro mock **dentro del Scenario** para una API de pedidos que no existe en la tienda.
+Desde M01 los tests hablan con la tienda que arranca `karate-config.js`. En M07 arrancas **otro** mock dentro del feature, para una API de pedidos que no está en la tienda.
 
-| Idea | Tienda (`mock/`) | Pedidos (este módulo) |
-|------|------------------|------------------------|
-| Cuándo arranca | `callSingle` en config | `Background` del feature M07 |
+| Idea | Tienda (`mock/tienda.feature`) | Pedidos (este módulo) |
+|------|--------------------------------|------------------------|
+| Cuándo arranca | `callSingle` en config | `Background` de **tu** feature |
 | Puerto | aleatorio, `baseUrl` | aleatorio, `url 'http://localhost:' + mock.port` |
-| Rutas | `/productos`, `/usuarios` | `/pedidos/{id}` |
+| Quién lo escribe | Ya viene | **Tú** |
 
 El Scenario del mock no es Given/When/Then de negocio: la condición es `pathMatches('/pedidos/{id}') && methodIs('get')`. El cuerpo se asigna a `response`.
 
 > [!NOTE]
-> `pathParams.id` en el mock llega como **string**. Por eso el feature de prueba hace `match response.id == '77'` (comillas). Si haces `parseInt` en el mock, podrías comparar número.
+> `pathParams.id` llega como **string**. `match response.id == '77'` (con comillas) o `parseInt` en el mock.
 
-Codespaces puede listar el puerto en **Ports**. Los tests ya usan `localhost`; no abras la URL `*.app.github.dev` salvo curiosidad.
+El catch-all (`Scenario:` vacío al final) tiene que ser **el último**.
 
 ## Demostración guiada
 
-> Recorrido que hace el formador en vivo. Tono descriptivo, sin imperativos.
+> Rama [`example`](https://github.com/my-it-labs/karate-api-101/tree/example).
 
-1. `mock/pedidos.feature` define GET `/pedidos/{id}` con `estado: enviado`.
-2. `features/m07/pedidos.feature` hace `karate.start` de ese fichero y GET `pedidos/77`.
-3. El informe muestra dos servidores en juego si también corre la tienda (config), pero este feature no usa `baseUrl`.
+1. `mock/pedidos.feature` — GET `/pedidos/{id}`, POST `/pedidos`, catch-all 404.
+2. `features/m07/pedidos.feature` — `karate.start` + GET 77 + POST.
+3. Extra: `examples/m07-catch-all.feature` (GET `/foo` → 404).
 
 ## Ahora practica tú
 
 | Lab | Título | Qué harás |
 |-----|--------|-----------|
-| M07-01 | [karate.start](M07-01-karate-start.md) | Arrancar el mock de pedidos y añadir una ruta |
+| M07-01 | [karate.start](M07-01-karate-start.md) | **Crear** mock de pedidos y el feature cliente |
 
 → Empieza por **[M07-01 — karate.start](M07-01-karate-start.md)**.

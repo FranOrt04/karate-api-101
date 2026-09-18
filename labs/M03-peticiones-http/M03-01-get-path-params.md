@@ -6,7 +6,7 @@
 
 ### Objetivo
 
-Lanzar GET contra la tienda usando `path` y `param`, y leer status 200 y 404.
+Escribir GET contra la tienda con `path` y `param`, y cubrir 200 y 404.
 
 ### Prerrequisitos
 
@@ -14,71 +14,56 @@ Lanzar GET contra la tienda usando `path` y `param`, y leer status 200 y 404.
 
 ### En qué consiste
 
-Ejecutas `get.feature` y añades un GET de usuario.
+Creas `features/m03/get.feature` y vas añadiendo escenarios, ejecutando `@http-get` cada vez.
 
-### 1 — Correr los GET
+### 1 — Listar productos
 
-**Acción:**
+**Acción:** Crea `src/test/java/features/m03/get.feature` con tags `@m03 @http-get`. `Background`: `Given url baseUrl`. Primer Scenario: `path 'productos'`, GET, `200`, lista de 3, el `[0].id` es 1.
 
-```bash
-mvn test -Dkarate.options="--tags @http-get"
-```
+**Por qué:** Mismo mock que el smoke, pero ahora el feature es de este módulo.
 
-**Por qué:** El tag `@http-get` aísla `get.feature` sin mezclar POST.
+**Resultado esperado:** `mvn test -Dkarate.options="--tags @http-get"` → 1 escenario verde.
 
-**Resultado esperado:** 4 escenarios verdes (listado, path, filtro, 404).
+### 2 — Path y query
 
-### 2 — Inspeccionar un request
+**Acción:** Añade un Scenario que pida el producto `2` y compruebe `nombre == 'Monitor'` y `categoria == 'pantalla'`. Otro que filtre `param categoria = 'periferico'` y espere **2** elementos, todos con esa categoría (`match each … contains`).
 
-**Acción:** Abre el informe HTML del run y entra en *Obtener un producto por path*.
+**Por qué:** `path` concatena segmentos; `param` va a la query. Orden: path y param **antes** de `method get`.
 
-**Por qué:** Ahí ves la URL final (`.../productos/2`) y el JSON de Monitor.
+**Resultado esperado:** 3 escenarios verdes.
 
-**Resultado esperado:** `nombre` = `Monitor`, `categoria` = `pantalla`.
+### 3 — 404
 
-### 3 — GET de usuario
+**Acción:** GET `productos/999`. Status `404` y `response.mensaje == 'Producto no encontrado'`.
 
-**Acción:** Al final de `get.feature` añade un Scenario que pida `usuarios/1` y compruebe que `nombre` es `Ana`.
+**Por qué:** Un GET que no existe no es un fallo del test si lo asertas.
 
-**Por qué:** El mock también expone `/usuarios/{id}`. Mismo patrón, otro recurso.
+**Resultado esperado:** 4 escenarios verdes. En el informe, el path 2 muestra el JSON del Monitor.
 
-**Resultado esperado:** al relanzar `@http-get`, 5 escenarios verdes.
+### 4 — Usuario
 
-```gherkin
-Scenario: Obtener una usuaria
-  And path 'usuarios', 1
-  When method get
-  Then status 200
-  And match response.nombre == 'Ana'
-```
+**Acción:** Scenario GET `usuarios/1`, `nombre == 'Ana'`.
+
+**Resultado esperado:** 5 escenarios verdes.
 
 ## Comprueba tu entendimiento
 
 **404 de usuario**
 
-GET a `usuarios/9`
-
-→ `404` y `response.mensaje == 'Usuario no encontrado'`.
+GET `usuarios/9` → `404` y mensaje `Usuario no encontrado`.
 
 ## Reto
 
-### 1 — Filtro que no existe
+### 1 — Filtro vacío
 
-Añade un Scenario que liste productos con `param categoria = 'audio'`.
+`param categoria = 'audio'`. ¿200 con lista vacía o 404?
 
 <details>
 <summary>Ver solución</summary>
 
-El mock filtra la lista; no hay categoría `audio`, así que `response == '#[0]'` y status 200 (lista vacía, no 404).
+200 y `response == '#[0]'`. El mock filtra; no hay categoría `audio`.
 
-```gherkin
-Scenario: Categoria sin productos
-  And path 'productos'
-  And param categoria = 'audio'
-  When method get
-  Then status 200
-  And match response == '#[0]'
-```
+Versión completa de referencia: rama `example` → `src/test/java/features/m03/get.feature`. Cabeceras: `examples/m03-cabeceras.feature`.
 
 </details>
 
@@ -86,6 +71,6 @@ Scenario: Categoria sin productos
 
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
-| `404 Ruta no mockeada` | `path '/productos'` con barra | `path 'productos'` |
-| Connection refused | Estás usando un host escrito a mano | Deja `url baseUrl` |
-| El filtro devuelve 3 productos | El param no se envió | `And param categoria = 'periferico'` **antes** de `method get` |
+| `404 Ruta no mockeada` | `path '/productos'` | `path 'productos'` |
+| Connection refused | Host escrito a mano | `url baseUrl` |
+| El filtro devuelve 3 | El param va después del GET | `param` antes de `method get` |

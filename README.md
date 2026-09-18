@@ -2,15 +2,24 @@
 
 [Siguiente página →](labs/M01-entorno-codespace/README.md)
 
-Formación **100 % práctica**. Escribes features de Karate, las ejecutas con Maven y validas APIs HTTP contra un mock local que ya viene en el repo.
+Formación **100 % práctica**. El `pom.xml`, el runner y el mock de tienda ya vienen montados. **Tú escribes** los `.feature` en `src/test/java/features/` y los ejecutas con Maven.
 
-El camino de aula es **GitHub Codespaces + VS Code**. No hace falta Eclipse ni una VM. Si tu empresa te obliga a Eclipse, hay una guía en [infra/eclipse.md](infra/eclipse.md).
+El camino de aula es **GitHub Codespaces + VS Code** sobre la rama **`main`**. Si tu empresa te obliga a Eclipse, hay una guía en [infra/eclipse.md](infra/eclipse.md).
+
+## Dos ramas
+
+| Rama | Para quién | Qué hay |
+|------|------------|---------|
+| **`main`** (tu fork, tu Codespace) | Alumno | Proyecto Maven listo; `features/` vacío para que lo llenes |
+| **`example`** | Formador | Labs terminados + extra en `src/test/java/examples/` |
+
+No abras un Codespace sobre `example` para trabajar los labs: te comes el temario. Si te atascas, mira la rama [`example`](https://github.com/my-it-labs/karate-api-101/tree/example) en GitHub, no la copies al empezar.
 
 ## Cómo funciona el curso
 
 Sigue este README como índice y avanza **página a página** con **← Página anterior · Siguiente página →**.
 
-Cada módulo tiene dos niveles: el **README del módulo** con la **teoría** y la **demostración** del formador, y uno o varios **laboratorios** donde practicas tú.
+Cada módulo tiene dos niveles: el **README del módulo** (teoría + demostración del formador en la rama `example`) y uno o varios **laboratorios** donde **creas** los features.
 
 ## Antes de empezar
 
@@ -20,7 +29,7 @@ Cada módulo tiene dos niveles: el **README del módulo** con la **teoría** y l
 | Cómo se ejecutan los tests | [infra/README.md](infra/README.md) |
 | Eclipse (opcional) | [infra/eclipse.md](infra/eclipse.md) |
 
-No necesitas cuenta en ninguna API pública. El laboratorio levanta un mock HTTP **dentro** del Codespace.
+No necesitas cuenta en ninguna API pública. El mock HTTP de tienda arranca **dentro** del Codespace cuando lanzas Karate.
 
 ## Módulos
 

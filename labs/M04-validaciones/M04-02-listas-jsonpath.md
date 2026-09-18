@@ -6,7 +6,7 @@
 
 ### Objetivo
 
-Validar un array entero con `match each` y localizar un valor con JSONPath.
+Validar un array con `match each` y localizar un valor con JSONPath.
 
 ### Prerrequisitos
 
@@ -14,53 +14,27 @@ Validar un array entero con `match each` y localizar un valor con JSONPath.
 
 ### En qué consiste
 
-Ejecutas `listas.feature` y añades una aserción sobre precios.
+Creas `features/m04/listas.feature` (tags `@m04 @listas`).
 
-### 1 — Correr listas
+### 1 — Tamaño y esquema de cada elemento
 
-**Acción:**
+**Acción:** Background GET `productos` 200. Scenario: `response == '#[3]'` y `[0].nombre == 'Teclado'`. Otro: `match each response ==` el mismo esquema de cinco campos de M04-01.
 
-```bash
-mvn test -Dkarate.options="--tags @listas"
-```
+**Resultado esperado:** `@listas` → 2 verdes.
 
-**Por qué:** El GET `/productos` devuelve tres objetos; `match each` aplica el esquema a los tres.
+### 2 — JSONPath
 
-**Resultado esperado:** 3 escenarios verdes.
+**Acción:** Scenario con `response[*].id contains 2` y `response[*].categoria contains 'pantalla'`. Añade `response[*].nombre contains 'Webcam'`.
 
-### 2 — Leer JSONPath
-
-**Acción:** En el informe del Scenario *JSONPath sobre la lista*, observa que no se recorre la lista a mano.
-
-**Por qué:** `response[*].id` es «todos los ids». `contains 2` busca el Monitor.
-
-**Resultado esperado:** en el log no hay bucle; un solo match.
-
-### 3 — Contains de un nombre
-
-**Acción:** Añade al último Scenario:
-
-```gherkin
-And match response[*].nombre contains 'Webcam'
-```
-
-**Por qué:** Misma idea, otro campo.
-
-**Resultado esperado:** verde.
+**Resultado esperado:** 3 verdes.
 
 ## Comprueba tu entendimiento
 
-**Longitud**
-
-Cambia `'#[3]'` por `'#[4]'` y relanza.
-
-→ Rojo. El mock tiene tres productos.
+Cambia `'#[3]'` por `'#[4]'` → rojo. Restaura.
 
 ## Reto
 
 ### 1 — Cada stock es número positivo
-
-Usa `match each` solo sobre `stock` (puedes extraer la lista).
 
 <details>
 <summary>Ver solución</summary>
@@ -70,7 +44,7 @@ And match each response[*].stock == '#number'
 And match each response[*].stock == '#? _ > 0'
 ```
 
-`#? _ > 0` es un predicado de Karate sobre el valor actual `_`. Si se te atraganta, deja el `'#number'` y el `assert` del lab anterior.
+Referencia: `example` → `features/m04/listas.feature`.
 
 </details>
 
@@ -78,5 +52,5 @@ And match each response[*].stock == '#? _ > 0'
 
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
-| `match each` sobre un objeto | Aplicaste `each` a `/productos/1` | `each` es para **arrays** |
-| JSONPath vacío | Escribiste `response.id[*]` | `response[*].id` |
+| `match each` sobre un objeto | Lo aplicaste a `/productos/1` | `each` es para arrays |
+| JSONPath vacío | `response.id[*]` | `response[*].id` |

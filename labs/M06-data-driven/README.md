@@ -14,29 +14,28 @@
 
 Un Outline es **un Scenario que se repite** por cada fila. `<id>` se sustituye antes de ejecutar.
 
-| Fuente | Dónde | Cuándo |
-|--------|-------|--------|
-| Tabla embebida | Bajo `Examples:` en el feature | Pocos casos, se leen en clase |
-| CSV | `Examples: \| read('productos.csv') \|` | Mismos campos, más filas |
-| JSON | `Examples: \| read('casos.json') \|` | Datos ya vienen como lista de objetos |
+| Fuente | Dónde |
+|--------|-------|
+| Tabla embebida | Bajo `Examples:` en el feature |
+| CSV | `Examples: \| read('productos.csv') \|` |
+| JSON | `Examples: \| read('casos.json') \|` |
 
-Las columnas del CSV **tienen que coincidir** con los placeholders (`<id>`, `<nombre>`, `<precio>`).
+Las columnas tienen que coincidir con los placeholders. El CSV/JSON van **junto** al feature (path relativo).
 
-> [!WARNING]
-> El CSV va junto al feature (`features/m06/productos.csv`) y se lee con path **relativo** al feature, no con `classpath:` en este lab.
+Los números en el `match` van **sin** comillas: `response.precio == <precio>`, no `'<precio>'`.
 
 ## Demostración guiada
 
-> Recorrido que hace el formador en vivo. Tono descriptivo, sin imperativos.
+> Rama [`example`](https://github.com/my-it-labs/karate-api-101/tree/example).
 
-1. `tabla.feature` recorre tres productos. En el informe aparecen tres filas, no un solo Scenario.
-2. `ficheros.feature` lee `productos.csv` y `casos.json`. El Outline de precios comprueba `response.precio == <precio>` (número, sin comillas).
-3. Un fallo en la fila 2 deja las otras en verde: se ve qué dato rompió.
+1. `features/m06/tabla.feature` — tres productos embebidos.
+2. `features/m06/ficheros.feature` + `productos.csv` + `casos.json`.
+3. Extra: `examples/m06-usuarios-outline.feature`.
 
 ## Ahora practica tú
 
 | Lab | Título | Qué harás |
 |-----|--------|-----------|
-| M06-01 | [Tablas, CSV y JSON](M06-01-tablas-csv-json.md) | Ejecutar outlines y añadir una fila |
+| M06-01 | [Tablas, CSV y JSON](M06-01-tablas-csv-json.md) | **Crear** outlines y ficheros de datos |
 
 → Empieza por **[M06-01 — Tablas, CSV y JSON](M06-01-tablas-csv-json.md)**.
