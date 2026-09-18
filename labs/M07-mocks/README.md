@@ -3,43 +3,38 @@
 [← Página anterior](../M06-data-driven/M06-01-tablas-csv-json.md) · [Siguiente página →](M07-01-karate-start.md)
 
 > [!NOTE]
-> **Cómo funciona este módulo.** Primero la **teoría**, luego la **demostración guiada** del formador, y después **practicas tú** en el laboratorio.
+> Primero ves que un mock es otro feature. En el laboratorio escribes tú el de pedidos y el test que lo arranca.
 
-## Qué aprenderás
+## Qué vas a hacer
 
-- Un mock de Karate **es un feature** con `pathMatches` / `methodIs`.
-- `karate.start('...feature')` devuelve `{ port }`.
-- El mock de tienda del curso vs un mock **ad hoc** de pedidos que escribes tú.
+- Definir rutas con `pathMatches` / `methodIs`.
+- Arrancar el mock con `karate.start('...feature')` y usar su `port`.
+- Distinguir la tienda (ya la tienes) de un mock de pedidos que montas aquí.
 
-## Teoría
+## Un mock es un feature
 
-Desde M01 los tests hablan con la tienda que arranca `karate-config.js`. En M07 arrancas **otro** mock dentro del feature, para una API de pedidos que no está en la tienda.
+Hasta ahora tus tests hablan con la tienda que arranca `karate-config.js`. Aquí levantas **otro** servidor, dentro del propio feature, para una API de pedidos que no está en la tienda.
 
-| Idea | Tienda (`mock/tienda.feature`) | Pedidos (este módulo) |
-|------|--------------------------------|------------------------|
-| Cuándo arranca | `callSingle` en config | `Background` de **tu** feature |
-| Puerto | aleatorio, `baseUrl` | aleatorio, `url 'http://localhost:' + mock.port` |
-| Quién lo escribe | Ya viene | **Tú** |
+| | Tienda | Pedidos (este módulo) |
+|--|--------|------------------------|
+| Cuándo arranca | `callSingle` en el config | El `Background` de **tu** feature |
+| Cómo la llamas | `baseUrl` | `url 'http://localhost:' + mock.port` |
+| Quién lo escribe | Ya está en `mock/tienda.feature` | Tú |
 
-El Scenario del mock no es Given/When/Then de negocio: la condición es `pathMatches('/pedidos/{id}') && methodIs('get')`. El cuerpo se asigna a `response`.
+En el mock la condición no es Given/When/Then de negocio: es `pathMatches('/pedidos/{id}') && methodIs('get')`. La respuesta la asignas a `response`.
 
-> [!NOTE]
-> `pathParams.id` llega como **string**. `match response.id == '77'` (con comillas) o `parseInt` en el mock.
+`pathParams.id` llega como **string**: `match response.id == '77'` (con comillas), o `parseInt` en el mock.
 
-El catch-all (`Scenario:` vacío al final) tiene que ser **el último**.
+El catch-all (`Scenario:` sin condición) va **el último**.
 
-## Demostración guiada
+## Cómo encaja
 
-> Rama [`example`](https://github.com/my-it-labs/karate-api-101/tree/example).
+En el mock declararás GET `/pedidos/{id}`, POST `/pedidos` y un 404 por defecto. En el feature de test harás `karate.start`, GET al id 77 y un POST.
 
-1. `mock/pedidos.feature` — GET `/pedidos/{id}`, POST `/pedidos`, catch-all 404.
-2. `features/m07/pedidos.feature` — `karate.start` + GET 77 + POST.
-3. Extra: `examples/m07-catch-all.feature` (GET `/foo` → 404).
+## Ahora te toca a ti
 
-## Ahora practica tú
-
-| Lab | Título | Qué harás |
-|-----|--------|-----------|
-| M07-01 | [karate.start](M07-01-karate-start.md) | **Crear** mock de pedidos y el feature cliente |
+| Lab | Título | Qué vas a montar |
+|-----|--------|------------------|
+| M07-01 | [karate.start](M07-01-karate-start.md) | Mock de pedidos + feature cliente |
 
 → Empieza por **[M07-01 — karate.start](M07-01-karate-start.md)**.

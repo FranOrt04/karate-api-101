@@ -2,11 +2,11 @@
 
 [← Página anterior](README.md) · [Siguiente página →](../../README.md)
 
-> Práctica del módulo. La teoría y la demo están en el [README del módulo](README.md).
+> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 
 ### Objetivo
 
-Escribir un mock propio y un feature que lo arranca. No uses `baseUrl` de la tienda.
+Vas a escribir un mock propio y un feature que lo arranca. No uses `baseUrl` de la tienda.
 
 ### Prerrequisitos
 
@@ -14,7 +14,7 @@ Escribir un mock propio y un feature que lo arranca. No uses `baseUrl` de la tie
 
 ### En qué consiste
 
-Creas `mock/pedidos.feature` y `features/m07/pedidos.feature`.
+Vas a crear `mock/pedidos.feature` y `features/m07/pedidos.feature`.
 
 ### 1 — El mock
 
@@ -38,7 +38,7 @@ Creas `mock/pedidos.feature` y `features/m07/pedidos.feature`.
 
 ## Comprueba tu entendimiento
 
-GET `foo` contra el puerto del mock de pedidos → 404 del catch-all. Extra en `example`: `examples/m07-catch-all.feature`.
+GET `foo` contra el puerto del mock de pedidos → 404 del catch-all.
 
 ## Reto
 
@@ -49,7 +49,7 @@ GET `foo` contra el puerto del mock de pedidos → 404 del catch-all. Extra en `
 <details>
 <summary>Ver solución</summary>
 
-Referencia: `example` → `mock/pedidos.feature` y `features/m07/pedidos.feature`.
+Si quieres contrastar, en `example` están `mock/pedidos.feature` y `features/m07/pedidos.feature`.
 
 </details>
 

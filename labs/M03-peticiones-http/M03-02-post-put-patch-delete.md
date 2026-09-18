@@ -2,11 +2,11 @@
 
 [← Página anterior](M03-01-get-path-params.md) · [Siguiente página →](../M04-validaciones/README.md)
 
-> Práctica del módulo. La teoría y la demo están en el [README del módulo](README.md).
+> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 
 ### Objetivo
 
-Escribir los cuatro verbos de escritura y comprobar que el mock **no persiste**.
+Vas a escribir los cuatro verbos de escritura y comprobar que el mock **no persiste**.
 
 ### Prerrequisitos
 
@@ -14,7 +14,7 @@ Escribir los cuatro verbos de escritura y comprobar que el mock **no persiste**.
 
 ### En qué consiste
 
-Creas `features/m03/write.feature` (tags `@m03 @http-write`).
+Vas a crear `features/m03/write.feature` (tags `@m03 @http-write`).
 
 ### 1 — POST
 
@@ -61,7 +61,7 @@ Cuerpo `{ nombre: 'Cable', categoria: 'periferico', stock: 20 }`. ¿Qué pones e
 
 `match response.precio == '#null'` y `status 201`.
 
-Referencia: rama `example` → `src/test/java/features/m03/write.feature`.
+Si quieres contrastar, en `example` está `src/test/java/features/m03/write.feature`.
 
 </details>
 

@@ -2,11 +2,11 @@
 
 [← Página anterior](M04-01-match-y-esquema.md) · [Siguiente página →](../M05-reutilizacion/README.md)
 
-> Práctica del módulo. La teoría y la demo están en el [README del módulo](README.md).
+> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 
 ### Objetivo
 
-Validar un array con `match each` y localizar un valor con JSONPath.
+Vas a validar un array con `match each` y localizar un valor con JSONPath.
 
 ### Prerrequisitos
 
@@ -14,7 +14,7 @@ Validar un array con `match each` y localizar un valor con JSONPath.
 
 ### En qué consiste
 
-Creas `features/m04/listas.feature` (tags `@m04 @listas`).
+Vas a crear `features/m04/listas.feature` (tags `@m04 @listas`).
 
 ### 1 — Tamaño y esquema de cada elemento
 
@@ -44,7 +44,7 @@ And match each response[*].stock == '#number'
 And match each response[*].stock == '#? _ > 0'
 ```
 
-Referencia: `example` → `features/m04/listas.feature`.
+Si quieres contrastar, en `example` está `features/m04/listas.feature`.
 
 </details>
 

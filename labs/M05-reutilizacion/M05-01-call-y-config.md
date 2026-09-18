@@ -2,11 +2,11 @@
 
 [← Página anterior](README.md) · [Siguiente página →](../M06-data-driven/README.md)
 
-> Práctica del módulo. La teoría y la demo están en el [README del módulo](README.md).
+> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 
 ### Objetivo
 
-Reutilizar un GET con `call` sin duplicar `url` / `path`.
+Vas a reutilizar un GET con `call` sin duplicar `url` / `path`.
 
 ### Prerrequisitos
 
@@ -14,7 +14,7 @@ Reutilizar un GET con `call` sin duplicar `url` / `path`.
 
 ### En qué consiste
 
-Creas el helper y el feature que lo llama.
+Vas a crear el helper y el feature que lo llama.
 
 ### 1 — Helper
 
@@ -51,7 +51,7 @@ El helper actual exige 200. ¿Cómo pruebas `productos/999`?
 
 No uses ese helper. GET explícito en el Scenario, o un segundo helper sin aserción de status.
 
-Referencia: `example` → `features/m05/call.feature`. Extra: `examples/m05-call-tabla.feature`.
+Si quieres contrastar, en `example` está `features/m05/call.feature`.
 
 </details>
 

@@ -3,43 +3,38 @@
 [← Página anterior](../M03-peticiones-http/M03-02-post-put-patch-delete.md) · [Siguiente página →](M04-01-match-y-esquema.md)
 
 > [!NOTE]
-> **Cómo funciona este módulo.** Primero la **teoría**, luego la **demostración guiada** del formador, y después **practicas tú** en los laboratorios.
+> Primero ves cómo `match` describe la **forma** del JSON. En el laboratorio lo escribes tú sobre productos y listas.
 
-## Qué aprenderás
+## Qué vas a hacer
 
-- `match` de igualdad, `contains` y marcadores `#string` / `#number`.
-- Esquemas de objeto y `match each` sobre listas.
-- JSONPath corto: `response[*].id`.
+- Combinar igualdad, `contains` y marcadores `#string` / `#number`.
+- Validar un objeto entero y cada elemento de una lista (`match each`).
+- Usar JSONPath corto: `response[*].id`.
 
-## Teoría
+## `match` con forma, no solo un campo
 
-Hasta ahora el `match` comprobaba un campo. En APIs reales quieres la **forma**.
+Hasta ahora comprobabas un valor. En una API real te interesa el **contrato**: tipos y claves.
 
-| Expresión | Significado |
-|-----------|-------------|
+| Expresión | Qué compruebas |
+|-----------|----------------|
 | `match response.nombre == 'Teclado'` | Valor exacto |
-| `match response contains { id: 1 }` | Subconjunto de campos |
+| `match response contains { id: 1 }` | Un subconjunto de campos |
 | `match response == { id: '#number', nombre: '#string', ... }` | Esquema del objeto |
-| `match each response == { ... }` | El mismo esquema para **cada** elemento |
+| `match each response == { ... }` | El mismo esquema en **cada** elemento |
 | `match response == '#[3]'` | Array de longitud 3 |
-| `match response[*].id contains 2` | JSONPath: la lista de ids incluye 2 |
+| `match response[*].id contains 2` | En la lista de ids aparece 2 |
 
-> [!NOTE]
-> `contains` no exige que el objeto tenga *solo* esos campos. El esquema con `== { ... }` sí exige **exactamente** esas claves.
+`contains` ignora el resto de claves. El esquema con `== { ... }` exige **exactamente** esas claves.
 
-## Demostración guiada
+## Cómo encaja
 
-> Rama [`example`](https://github.com/my-it-labs/karate-api-101/tree/example).
+Un GET a `/productos/1` en el Background te dejará el Teclado. Sobre esa respuesta harás igualdad, `contains` y el esquema de cinco campos. Sobre el listado, `match each` y `response[*].categoria`.
 
-1. `features/m04/match.feature`: GET `/productos/1` en el Background; igualdad, `contains`, esquema de cinco campos.
-2. `features/m04/listas.feature`: `match each` + `response[*].categoria`.
-3. Extra: `examples/m04-predicados.feature` (`#? _ > 0`).
+## Ahora te toca a ti
 
-## Ahora practica tú
-
-| Lab | Título | Qué harás |
-|-----|--------|-----------|
-| M04-01 | [match y esquema](M04-01-match-y-esquema.md) | **Crear** `match.feature` |
-| M04-02 | [Listas y JSONPath](M04-02-listas-jsonpath.md) | **Crear** `listas.feature` |
+| Lab | Título | Qué vas a montar |
+|-----|--------|------------------|
+| M04-01 | [match y esquema](M04-01-match-y-esquema.md) | `match.feature` |
+| M04-02 | [Listas y JSONPath](M04-02-listas-jsonpath.md) | `listas.feature` |
 
 → Empieza por **[M04-01 — match y esquema](M04-01-match-y-esquema.md)**.

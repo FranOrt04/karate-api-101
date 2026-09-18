@@ -2,11 +2,11 @@
 
 [← Página anterior](README.md) · [Siguiente página →](../M07-mocks/README.md)
 
-> Práctica del módulo. La teoría y la demo están en el [README del módulo](README.md).
+> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 
 ### Objetivo
 
-Repetir el mismo GET con tres fuentes: tabla, CSV y JSON.
+Vas a repetir el mismo GET con tres fuentes: tabla, CSV y JSON.
 
 ### Prerrequisitos
 
@@ -14,7 +14,7 @@ Repetir el mismo GET con tres fuentes: tabla, CSV y JSON.
 
 ### En qué consiste
 
-Creas `features/m06/` con dos features y dos ficheros de datos.
+Vas a crear `features/m06/` con dos features y dos ficheros de datos.
 
 ### 1 — Tabla embebida
 
@@ -49,7 +49,7 @@ Añádela al CSV. Debe fallar (el mock solo tiene 1–3). Quítala.
 
 El Outline espera 200; id 4 es 404. Para mezclar status haría falta una columna `status`.
 
-Referencia: `example` → `features/m06/`. Extra: `examples/m06-usuarios-outline.feature`.
+Si quieres contrastar, en `example` está `features/m06/`.
 
 </details>
 

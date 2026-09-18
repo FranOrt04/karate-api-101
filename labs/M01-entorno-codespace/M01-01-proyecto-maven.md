@@ -2,11 +2,11 @@
 
 [← Página anterior](README.md) · [Siguiente página →](M01-02-config-y-humo.md)
 
-> Práctica del módulo. La teoría y la demo están en el [README del módulo](README.md).
+> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 
 ### Objetivo
 
-Montar un proyecto Maven que ejecute un `.feature` de Karate. Al final de este lab, `mvn test` está verde **con un feature que has escrito tú**.
+Vas a montar un proyecto Maven que ejecute un `.feature` de Karate. Al final de este lab, `mvn test` estará verde **con un feature que has escrito tú**.
 
 ### Prerrequisitos
 
@@ -14,7 +14,7 @@ Montar un proyecto Maven que ejecute un `.feature` de Karate. Al final de este l
 
 ### En qué consiste
 
-Codespace en `main`, `pom.xml` por piezas, runner JUnit, primer feature (sin HTTP).
+Vas a abrir el Codespace en `main`, escribir el `pom.xml` por piezas, el runner JUnit y tu primer feature (sin HTTP).
 
 ### 1 — Fork y Codespace en `main`
 
@@ -26,7 +26,7 @@ mvn -version
 ls pom.xml src/test/java/runners src/test/java/features
 ```
 
-**Por qué:** Esta rama no trae el curso compilado. Si ves un `pom.xml` enorme y `dsl.feature`, estás en `example`.
+**Por qué:** En el Codespace de `main` tienes Java y Maven; Karate aún no. El pom lo escribes tú en los siguientes pasos.
 
 **Resultado esperado:** Java 17, Maven 3.9.x. **No** existe `pom.xml`. `mock/` sí existe. `features/` y `runners/` no (o están vacíos).
 
@@ -130,7 +130,7 @@ En el mismo Scenario, `match mensaje == '#string'`. Relanza `mvn test`.
 <details>
 <summary>Ver solución</summary>
 
-`'#string'` es marcador de tipo, no el texto de la palabra. Si el pom o el runner se atascan, rama `example`: `pom.xml` y `src/test/java/runners/KarateTest.java`. No copies los features de `example` enteros: el hola es tuyo.
+`'#string'` es marcador de tipo, no el texto de la palabra. Si el pom o el runner se atascan, contrasta con la rama `example` (`pom.xml` y `KarateTest.java`). El `hola.feature` lo dejas como lo hayas escrito tú.
 
 </details>
 
@@ -138,7 +138,7 @@ En el mismo Scenario, `match mensaje == '#string'`. Relanza `mvn test`.
 
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
-| Ya hay `pom.xml` y labs hechos | Codespace en `example` | Recrea en **`main`** |
+| Ya hay un `pom.xml` completo y los features del curso | Codespace creado desde `example` | Recrea el Codespace desde **`main`** |
 | `no features found` con el hola creado | Falta `testResources` o el feature no está bajo `features/` | Paso 4; path `src/test/java/features/hola.feature` |
 | `mvn test` 0 tests y no aparece Karate | Falta el runner o Surefire no lo ve | `package runners;` y ruta `src/test/java/runners/KarateTest.java` |
 | Karate 1.5 / otro `groupId` | Copiaste internet | `com.intuit.karate` 1.4.1 |

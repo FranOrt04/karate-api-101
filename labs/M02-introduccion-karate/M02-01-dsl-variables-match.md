@@ -2,11 +2,11 @@
 
 [← Página anterior](README.md) · [Siguiente página →](../M03-peticiones-http/README.md)
 
-> Práctica del módulo. La teoría y la demo están en el [README del módulo](README.md).
+> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 
 ### Objetivo
 
-Crear un feature sin HTTP, ejecutarlo por tag y distinguir un `match` de valor de un `match` de tipo.
+Vas a crear un feature sin HTTP, ejecutarlo por tag y distinguir un `match` de valor de un `match` de tipo.
 
 ### Prerrequisitos
 
@@ -14,7 +14,7 @@ Crear un feature sin HTTP, ejecutarlo por tag y distinguir un `match` de valor d
 
 ### En qué consiste
 
-Creas `features/m02/dsl.feature`, lo lanzas, provocas un fallo a propósito y añades un escenario.
+Vas a crear `features/m02/dsl.feature`, lanzarlo, provocar un fallo a propósito y añadir un escenario.
 
 ### 1 — Crear el fichero
 
@@ -49,7 +49,7 @@ mvn test -Dkarate.options="--tags @m02"
 
 **Acción:** Cambia el match de `nombre` a `'Raton'`, lanza `@m02`, mira el informe en rojo, y restaura `'Teclado'`.
 
-**Por qué:** El informe enseña actual vs esperado. En clase interesa verlo **antes** de los GET.
+**Por qué:** El informe enseña actual vs esperado. Te conviene verlo **antes** de los GET, para reconocerlo cuando un escenario HTTP falle.
 
 **Resultado esperado:** `BUILD FAILURE` y después otra vez verde.
 
@@ -86,7 +86,7 @@ Scenario: IVA de un teclado
   Then match resultado == 30.25
 ```
 
-Si quieres ver una versión ya montada (con `conIva(100) == 121`), rama `example` → `src/test/java/features/m02/dsl.feature`. Extra de regex/assert: `src/test/java/examples/m02-expresiones.feature`.
+Si quieres contrastar, en `example` está `src/test/java/features/m02/dsl.feature` (incluye `conIva(100) == 121`). Más DSL: `src/test/java/examples/m02-expresiones.feature`.
 
 </details>
 
@@ -94,6 +94,6 @@ Si quieres ver una versión ya montada (con `conIva(100) == 121`), rama `example
 
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
-| El fichero ya existía completo | Estás en `example` | Vuelve a `main` |
+| El fichero ya existía completo | Codespace desde `example` | Recrea el Codespace desde `main` |
 | `match` trata `'#string'` como texto vs `Teclado` | Faltan comillas del marcador o usaste `=` | `match x == '#string'` |
 | `@m02` no corre nada | El feature no está bajo `features/` | `src/test/java/features/m02/dsl.feature` |

@@ -1,8 +1,8 @@
 # Eclipse (opcional)
 
-El curso se imparte en **Codespaces + VS Code**. Esta página es solo si tu equipo te pide Eclipse.
+El camino del curso es **Codespace + VS Code**. Usa esta página solo si tu equipo te pide Eclipse.
 
-Haz **primero** el M01-01 en cualquier editor (crear `pom.xml` y el runner). Después importa.
+Escribe primero el `pom.xml` y el runner (M01-01) y **después** importa.
 
 ## Qué necesitas
 
@@ -10,22 +10,20 @@ Haz **primero** el M01-01 en cualquier editor (crear `pom.xml` y el runner). Des
 - JDK **17**
 - Maven 3.9+ o el embebido de Eclipse
 
-## Importar el proyecto
+## Importar
 
-1. Con el `pom.xml` **ya escrito** (M01-01): **File → Import → Maven → Existing Maven Projects**.
+1. Con el `pom.xml` ya escrito: **File → Import → Maven → Existing Maven Projects**.
 2. Root Directory: la carpeta del repo.
-3. Finish. Maven Update (Force Update) si `karate-junit5` sigue en rojo.
+3. Si `karate-junit5` sigue en rojo: Maven Update (Force Update).
 
-**Resultado esperado:** compiler compliance **17**.
+El compiler tiene que quedar en **17**.
 
-## Ejecutar tests
+## Ejecutar
 
 1. Abre `src/test/java/runners/KarateTest.java` (lo escribes en M01-01).
 2. Clic derecho → **Run As → JUnit Test**.
 
-## Tags
-
-**Run Configurations → JUnit → Arguments → VM arguments:**
+Para filtrar tags, en **Run Configurations → JUnit → Arguments → VM arguments**:
 
 ```text
 -Dkarate.options=--tags @smoke
@@ -35,6 +33,6 @@ Haz **primero** el M01-01 en cualquier editor (crear `pom.xml` y el runner). Des
 
 | Síntoma | Qué mirar |
 |---------|-----------|
-| No hay proyecto Maven | Aún no existe `pom.xml` — M01-01 |
+| No hay proyecto Maven | Todavía no existe `pom.xml` — M01-01 |
 | Compiler 1.8 / 11 | Java Compiler → 17; en el pom, `maven.compiler.release` 17 |
-| Features no se ejecutan | `testResources` apuntando a `src/test/java` (sin `*.java`) — lo añades en M01-01 |
+| Los features no se ejecutan | En el pom, `testResources` apuntando a `src/test/java` (sin `*.java`) — lo añades en M01-01 |

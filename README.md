@@ -2,34 +2,31 @@
 
 [Siguiente página →](labs/M01-entorno-codespace/README.md)
 
-Formación **100 % práctica**. El Codespace trae **JDK 17 y Maven**. Tú montas el proyecto: `pom.xml` por partes, el runner JUnit y los `.feature`.
+Vas a automatizar pruebas HTTP con Karate: escribirás features en Gherkin, los ejecutarás con Maven y validarás respuestas JSON.
 
-El camino de aula es **GitHub Codespaces + VS Code** sobre la rama **`main`**. Eclipse: [infra/eclipse.md](infra/eclipse.md).
+En el Codespace encontrarás **JDK 17 y Maven**. El primer paso será declarar Karate en el `pom.xml` e instalar la dependencia, para ver **dónde vive** y **cómo se pone en marcha**. Después escribirás el runner, tu primer `.feature` y, ya en marcha, el resto de escenarios.
 
-## Dos ramas
+Trabaja en **tu fork**, rama **`main`**. Crea el Codespace desde ahí (**Code → Codespaces → Create codespace on main**).
 
-| Rama | Para quién | Qué hay |
-|------|------------|---------|
-| **`main`** (tu fork, tu Codespace) | Alumno | Devcontainer + mock de tienda + labs. **Sin** pom ni runner ni features |
-| **`example`** | Formador | Proyecto completo + extra en `src/test/java/examples/` |
+Eclipse no hace falta; si tu equipo lo pide: [infra/eclipse.md](infra/eclipse.md).
 
-No abras un Codespace sobre `example` para hacer los labs. Si te atascas, mira [`example`](https://github.com/my-it-labs/karate-api-101/tree/example) en GitHub.
+## Cómo avanzar
 
-## Cómo funciona el curso
+Sigue este README como índice y pasa **página a página** con **← Página anterior · Siguiente página →**.
 
-Sigue este README como índice y avanza **página a página** con **← Página anterior · Siguiente página →**.
-
-Cada módulo: **README** (teoría + demo del formador en `example`) y **labs** donde construyes tú.
+En cada módulo lees el README (qué vas a usar y cómo encaja) y luego entras al laboratorio, donde **lo montas tú**.
 
 ## Antes de empezar
 
-| Requisito | Dónde |
-|-----------|--------|
+| Qué | Dónde |
+|-----|--------|
 | Codespace | Fork → **Code → Codespaces → Create codespace on main** ([`.devcontainer/`](.devcontainer/devcontainer.json)) |
-| Cómo se ejecuta Maven | [infra/README.md](infra/README.md) |
-| Eclipse (opcional) | [infra/eclipse.md](infra/eclipse.md) |
+| Comandos Maven | [infra/README.md](infra/README.md) |
+| Eclipse (si te lo piden) | [infra/eclipse.md](infra/eclipse.md) |
 
-El mock HTTP de tienda (`src/test/java/mock/`) está en el repo; lo enchufas en M01-02 cuando escribas `karate-config.js`.
+En `src/test/java/mock/` tienes una API de tienda local. La enchufarás cuando escribas `karate-config.js` (M01-02). No necesitas APIs públicas.
+
+Si en un lab te quedas pillado, la rama [`example`](https://github.com/my-it-labs/karate-api-101/tree/example) tiene el mismo proyecto ya montado para contrastar. Tú construyes el tuyo en `main`.
 
 ## Módulos
 

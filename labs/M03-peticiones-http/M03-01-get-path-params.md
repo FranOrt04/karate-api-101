@@ -2,11 +2,11 @@
 
 [← Página anterior](README.md) · [Siguiente página →](M03-02-post-put-patch-delete.md)
 
-> Práctica del módulo. La teoría y la demo están en el [README del módulo](README.md).
+> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 
 ### Objetivo
 
-Escribir GET contra la tienda con `path` y `param`, y cubrir 200 y 404.
+Vas a escribir GET contra la tienda con `path` y `param`, y cubrir 200 y 404.
 
 ### Prerrequisitos
 
@@ -14,7 +14,7 @@ Escribir GET contra la tienda con `path` y `param`, y cubrir 200 y 404.
 
 ### En qué consiste
 
-Creas `features/m03/get.feature` y vas añadiendo escenarios, ejecutando `@http-get` cada vez.
+Vas a crear `features/m03/get.feature` y ir añadiendo escenarios, ejecutando `@http-get` cada vez.
 
 ### 1 — Listar productos
 
@@ -63,7 +63,7 @@ GET `usuarios/9` → `404` y mensaje `Usuario no encontrado`.
 
 200 y `response == '#[0]'`. El mock filtra; no hay categoría `audio`.
 
-Versión completa de referencia: rama `example` → `src/test/java/features/m03/get.feature`. Cabeceras: `examples/m03-cabeceras.feature`.
+Si quieres contrastar, en `example` está `src/test/java/features/m03/get.feature`.
 
 </details>
 

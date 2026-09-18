@@ -2,11 +2,11 @@
 
 [← Página anterior](README.md) · [Siguiente página →](M04-02-listas-jsonpath.md)
 
-> Práctica del módulo. La teoría y la demo están en el [README del módulo](README.md).
+> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 
 ### Objetivo
 
-Validar un JSON con igualdad, `contains` y un esquema de tipos.
+Vas a validar un JSON con igualdad, `contains` y un esquema de tipos.
 
 ### Prerrequisitos
 
@@ -14,7 +14,7 @@ Validar un JSON con igualdad, `contains` y un esquema de tipos.
 
 ### En qué consiste
 
-Creas `features/m04/match.feature` (tag `@m04 @validaciones`).
+Vas a crear `features/m04/match.feature` (tag `@m04 @validaciones`).
 
 ### 1 — Background y igualdad
 
@@ -50,7 +50,7 @@ Creas `features/m04/match.feature` (tag `@m04 @validaciones`).
 
 ### 1 — Precio positivo
 
-`match` de tipo + `assert response.precio > 0`. Extra en `example`: `examples/m04-predicados.feature`.
+`match` de tipo + `assert response.precio > 0`.
 
 <details>
 <summary>Ver solución</summary>
@@ -60,7 +60,7 @@ And match response.precio == '#number'
 And assert response.precio > 0
 ```
 
-Referencia: `example` → `features/m04/match.feature`.
+Si quieres contrastar, en `example` está `features/m04/match.feature`.
 
 </details>
 

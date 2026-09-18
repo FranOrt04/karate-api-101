@@ -2,11 +2,11 @@
 
 [← Página anterior](M01-01-proyecto-maven.md) · [Siguiente página →](../M02-introduccion-karate/README.md)
 
-> Práctica del módulo. La teoría y la demo están en el [README del módulo](README.md).
+> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 
 ### Objetivo
 
-Enchufar el mock de tienda (ya está en `mock/`) con `karate-config.js` y pasar un GET de humo.
+Vas a enchufar el mock de tienda (ya está en `mock/`) con `karate-config.js` y pasar un GET de humo.
 
 ### Prerrequisitos
 
@@ -14,7 +14,7 @@ Enchufar el mock de tienda (ya está en `mock/`) con `karate-config.js` y pasar 
 
 ### En qué consiste
 
-Escribes `karate-config.js` (Karate lo carga solo) y `smoke.feature`.
+Vas a escribir `karate-config.js` (Karate lo carga solo) y `smoke.feature`.
 
 ### 1 — Qué hay en `mock/`
 
@@ -67,7 +67,7 @@ Añade un Scenario GET `usuarios/1` y `nombre == 'Ana'`.
 
 Mismo Background/`url baseUrl`, `path 'usuarios', 1`, `status 200`.
 
-Referencia (no copies hasta haberte atascado): rama `example` → `karate-config.js` y `features/smoke.feature`.
+Si quieres contrastar, en la rama `example` están `karate-config.js` y `features/smoke.feature`.
 
 </details>
 

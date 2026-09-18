@@ -3,39 +3,35 @@
 [← Página anterior](../M05-reutilizacion/M05-01-call-y-config.md) · [Siguiente página →](M06-01-tablas-csv-json.md)
 
 > [!NOTE]
-> **Cómo funciona este módulo.** Primero la **teoría**, luego la **demostración guiada** del formador, y después **practicas tú** en el laboratorio.
+> Primero ves cómo un Outline recorre filas. En el laboratorio montas tú la tabla, el CSV y el JSON.
 
-## Qué aprenderás
+## Qué vas a hacer
 
-- `Scenario Outline` + `Examples`.
-- Cargar la tabla desde un CSV y desde un JSON.
+- Escribir un `Scenario Outline` con `Examples`.
+- Cargar las filas desde un CSV y desde un JSON.
 
-## Teoría
+## Una fila, un Scenario
 
-Un Outline es **un Scenario que se repite** por cada fila. `<id>` se sustituye antes de ejecutar.
+El Outline es el **mismo** Scenario repetido. `<id>` se sustituye antes de ejecutar.
 
-| Fuente | Dónde |
-|--------|-------|
+| Fuente | Dónde lo pones |
+|--------|----------------|
 | Tabla embebida | Bajo `Examples:` en el feature |
 | CSV | `Examples: \| read('productos.csv') \|` |
 | JSON | `Examples: \| read('casos.json') \|` |
 
-Las columnas tienen que coincidir con los placeholders. El CSV/JSON van **junto** al feature (path relativo).
+Las columnas tienen que llamarse como los placeholders. El CSV y el JSON van **junto** al feature.
 
-Los números en el `match` van **sin** comillas: `response.precio == <precio>`, no `'<precio>'`.
+Los números van **sin** comillas: `response.precio == <precio>`, no `'<precio>'`.
 
-## Demostración guiada
+## Cómo encaja
 
-> Rama [`example`](https://github.com/my-it-labs/karate-api-101/tree/example).
+Un Outline embebido recorrerá los tres productos. Otro leerá `productos.csv` (precios) y `casos.json` (nombres). Si una fila falla, las demás pueden seguir verdes.
 
-1. `features/m06/tabla.feature` — tres productos embebidos.
-2. `features/m06/ficheros.feature` + `productos.csv` + `casos.json`.
-3. Extra: `examples/m06-usuarios-outline.feature`.
+## Ahora te toca a ti
 
-## Ahora practica tú
-
-| Lab | Título | Qué harás |
-|-----|--------|-----------|
-| M06-01 | [Tablas, CSV y JSON](M06-01-tablas-csv-json.md) | **Crear** outlines y ficheros de datos |
+| Lab | Título | Qué vas a montar |
+|-----|--------|------------------|
+| M06-01 | [Tablas, CSV y JSON](M06-01-tablas-csv-json.md) | Outlines y ficheros de datos |
 
 → Empieza por **[M06-01 — Tablas, CSV y JSON](M06-01-tablas-csv-json.md)**.
