@@ -2,40 +2,40 @@
 
 [Siguiente página →](labs/M01-entorno-codespace/README.md)
 
-Formación **100 % práctica**. El `pom.xml`, el runner y el mock de tienda ya vienen montados. **Tú escribes** los `.feature` en `src/test/java/features/` y los ejecutas con Maven.
+Formación **100 % práctica**. El Codespace trae **JDK 17 y Maven**. Tú montas el proyecto: `pom.xml` por partes, el runner JUnit y los `.feature`.
 
-El camino de aula es **GitHub Codespaces + VS Code** sobre la rama **`main`**. Si tu empresa te obliga a Eclipse, hay una guía en [infra/eclipse.md](infra/eclipse.md).
+El camino de aula es **GitHub Codespaces + VS Code** sobre la rama **`main`**. Eclipse: [infra/eclipse.md](infra/eclipse.md).
 
 ## Dos ramas
 
 | Rama | Para quién | Qué hay |
 |------|------------|---------|
-| **`main`** (tu fork, tu Codespace) | Alumno | Proyecto Maven listo; `features/` vacío para que lo llenes |
-| **`example`** | Formador | Labs terminados + extra en `src/test/java/examples/` |
+| **`main`** (tu fork, tu Codespace) | Alumno | Devcontainer + mock de tienda + labs. **Sin** pom ni runner ni features |
+| **`example`** | Formador | Proyecto completo + extra en `src/test/java/examples/` |
 
-No abras un Codespace sobre `example` para trabajar los labs: te comes el temario. Si te atascas, mira la rama [`example`](https://github.com/my-it-labs/karate-api-101/tree/example) en GitHub, no la copies al empezar.
+No abras un Codespace sobre `example` para hacer los labs. Si te atascas, mira [`example`](https://github.com/my-it-labs/karate-api-101/tree/example) en GitHub.
 
 ## Cómo funciona el curso
 
 Sigue este README como índice y avanza **página a página** con **← Página anterior · Siguiente página →**.
 
-Cada módulo tiene dos niveles: el **README del módulo** (teoría + demostración del formador en la rama `example`) y uno o varios **laboratorios** donde **creas** los features.
+Cada módulo: **README** (teoría + demo del formador en `example`) y **labs** donde construyes tú.
 
 ## Antes de empezar
 
 | Requisito | Dónde |
 |-----------|--------|
-| Codespace (recomendado) | Fork → **Code → Codespaces → Create codespace on main** ([`.devcontainer/`](.devcontainer/devcontainer.json)) |
-| Cómo se ejecutan los tests | [infra/README.md](infra/README.md) |
+| Codespace | Fork → **Code → Codespaces → Create codespace on main** ([`.devcontainer/`](.devcontainer/devcontainer.json)) |
+| Cómo se ejecuta Maven | [infra/README.md](infra/README.md) |
 | Eclipse (opcional) | [infra/eclipse.md](infra/eclipse.md) |
 
-No necesitas cuenta en ninguna API pública. El mock HTTP de tienda arranca **dentro** del Codespace cuando lanzas Karate.
+El mock HTTP de tienda (`src/test/java/mock/`) está en el repo; lo enchufas en M01-02 cuando escribas `karate-config.js`.
 
 ## Módulos
 
 | # | Módulo | Índice |
 |---|--------|--------|
-| M01 | Entorno Codespace | [labs/M01-entorno-codespace/](labs/M01-entorno-codespace/README.md) |
+| M01 | Entorno y proyecto Maven | [labs/M01-entorno-codespace/](labs/M01-entorno-codespace/README.md) |
 | M02 | Introducción a Karate | [labs/M02-introduccion-karate/](labs/M02-introduccion-karate/README.md) |
 | M03 | Peticiones HTTP | [labs/M03-peticiones-http/](labs/M03-peticiones-http/README.md) |
 | M04 | Validaciones | [labs/M04-validaciones/](labs/M04-validaciones/README.md) |
@@ -45,4 +45,4 @@ No necesitas cuenta en ninguna API pública. El mock HTTP de tienda arranca **de
 
 ## Empieza aquí
 
-→ **[M01 — Entorno Codespace](labs/M01-entorno-codespace/README.md)**
+→ **[M01 — Entorno y proyecto Maven](labs/M01-entorno-codespace/README.md)**

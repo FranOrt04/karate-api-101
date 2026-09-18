@@ -1,6 +1,6 @@
 # M02 — Introducción a Karate
 
-[← Página anterior](../M01-entorno-codespace/M01-01-codespace-y-humo.md) · [Siguiente página →](M02-01-dsl-variables-match.md)
+[← Página anterior](../M01-entorno-codespace/M01-02-config-y-humo.md) · [Siguiente página →](M02-01-dsl-variables-match.md)
 
 > [!NOTE]
 > **Cómo funciona este módulo.** Primero la **teoría**, luego la **demostración guiada** del formador, y después **practicas tú** en el laboratorio.

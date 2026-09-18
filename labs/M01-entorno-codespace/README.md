@@ -1,45 +1,49 @@
-# M01 — Entorno Codespace
+# M01 — Entorno y proyecto Maven
 
-[← Página anterior](../../README.md) · [Siguiente página →](M01-01-codespace-y-humo.md)
+[← Página anterior](../../README.md) · [Siguiente página →](M01-01-proyecto-maven.md)
 
 > [!NOTE]
 > **Cómo funciona este módulo.** Primero la **teoría**, luego la **demostración guiada** del formador, y después **practicas tú** en el laboratorio.
 
 ## Qué aprenderás
 
-- Fork del repo y Codespace como máquina de laboratorio.
-- Qué trae el proyecto (pom, runner, mock) y qué tienes que escribir tú (`features/`).
-- Crear el primer `.feature` de humo y abrir el informe HTML.
+- Fork y Codespace (JDK 17 + Maven, **sin** proyecto Karate hecho).
+- Escribir el `pom.xml` por piezas e instalar `karate-junit5`.
+- Escribir el runner JUnit y el primer `.feature` hasta verlo verde.
+- Enchufar el mock de tienda con `karate-config.js` y un GET de humo.
 
 ## Teoría
 
-Karate es un DSL sobre Gherkin (`Given` / `When` / `Then`) para probar APIs HTTP. En este curso **no usamos una VM ni Eclipse**. El laboratorio es un contenedor en GitHub Codespaces con JDK 17, Maven y las extensiones de VS Code.
+El Codespace no es el curso: es el **JDK y Maven**. Karate entra cuando el `pom` declara `karate-junit5` y Maven descarga esa dependencia.
 
 | Pieza | ¿Quién la pone? |
 |-------|-----------------|
-| `pom.xml` + `KarateTest.java` | Ya vienen |
-| `mock/tienda.feature` + `karate-config.js` | Ya vienen (`baseUrl`) |
-| `src/test/java/features/*.feature` | **Tú**, módulo a módulo |
-| `target/karate-reports/` | Karate, después de `mvn test` |
+| `.devcontainer` (Java 17, Maven, extensiones) | El repo |
+| `src/test/java/mock/tienda.feature` | El repo (API local) |
+| `pom.xml` | **Tú** (M01-01), por partes |
+| `runners/KarateTest.java` | **Tú** (M01-01) |
+| `features/*.feature` | **Tú**, módulo a módulo |
+| `karate-config.js` | **Tú** (M01-02), para tener `baseUrl` |
+
+Karate busca los `.feature` en el classpath de test. Por eso el pom tiene que marcar `src/test/java` como `testResources` (y excluir `*.java`). Si no, `mvn test` no ve los features.
 
 > [!NOTE]
-> El mock **no es una app que abras en el navegador**. Karate lo levanta, los tests hablan con `localhost`, y se apaga al terminar.
-
-Eclipse: [infra/eclipse.md](../../infra/eclipse.md). El camino de clase es Codespace sobre **`main`**.
+> El mock no es una ventana de navegador. Cuando exista `karate-config.js`, Karate lo levanta en `localhost` y se apaga al terminar.
 
 ## Demostración guiada
 
-> Recorrido que hace el formador en vivo en la rama [`example`](https://github.com/my-it-labs/karate-api-101/tree/example). Tono descriptivo, sin imperativos.
+> Rama [`example`](https://github.com/my-it-labs/karate-api-101/tree/example). El formador no demo en el fork del alumno.
 
-1. Al abrir el repo en GitHub, la rama de trabajo es `main`. El Codespace del alumno arranca VS Code en esa rama. El formador tiene **otro** Codespace (o checkout) en `example`.
-2. En `example`, `src/test/java/features/smoke.feature` ya lista el catálogo: `url baseUrl`, `path 'productos'`, `status 200`, tres elementos.
-3. `mvn test -Dkarate.options="--tags @smoke"` deja el informe en `target/karate-reports/karate-summary.html`. Live Preview lo abre dentro de VS Code.
-4. En `example` también está `src/test/java/examples/` (cabeceras, predicados, `call` con lista…). Eso no va al fork del alumno.
+1. En `example` el `pom.xml` ya tiene `karate.version` 1.4.1, `karate-junit5` en scope test, `testResources` sobre `src/test/java` y Surefire pasando `karate.options`.
+2. `KarateTest.java` hace `Karate.run("classpath:features")`.
+3. `karate-config.js` llama a `mock/start.js` y expone `baseUrl`. `features/smoke.feature` hace GET `/productos`.
+4. `mvn test` deja el informe en `target/karate-reports/`. Extra de demo: `src/test/java/examples/`.
 
 ## Ahora practica tú
 
 | Lab | Título | Qué harás |
 |-----|--------|-----------|
-| M01-01 | [Codespace y humo](M01-01-codespace-y-humo.md) | Fork en `main`, inspeccionar el pom, **escribir** `smoke.feature` |
+| M01-01 | [Proyecto Maven](M01-01-proyecto-maven.md) | pom por partes, runner, primer feature, `mvn test` |
+| M01-02 | [Config y humo](M01-02-config-y-humo.md) | `karate-config.js` + GET al mock |
 
-→ Empieza por **[M01-01 — Codespace y humo](M01-01-codespace-y-humo.md)**.
+→ Empieza por **[M01-01 — Proyecto Maven](M01-01-proyecto-maven.md)**.

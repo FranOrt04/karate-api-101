@@ -10,7 +10,7 @@ Crear un feature sin HTTP, ejecutarlo por tag y distinguir un `match` de valor d
 
 ### Prerrequisitos
 
-- M01-01 hecho (`@smoke` en verde).
+- M01 hecho (`hola.feature` y `@smoke` en verde).
 
 ### En qué consiste
 
