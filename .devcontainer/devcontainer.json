@@ -1,0 +1,26 @@
+{
+  "name": "Karate API 101",
+  "image": "mcr.microsoft.com/devcontainers/java:1-17-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "none",
+      "installMaven": "true",
+      "mavenVersion": "3.9.9"
+    }
+  },
+  "postCreateCommand": "mvn -q -DskipTests dependency:go-offline test-compile",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "cucumberopen.cucumber-official",
+        "karatelabs.karate",
+        "ms-vscode.live-server"
+      ],
+      "settings": {
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "files.encoding": "utf8"
+      }
+    }
+  }
+}
