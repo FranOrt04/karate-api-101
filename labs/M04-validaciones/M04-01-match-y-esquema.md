@@ -14,55 +14,114 @@ Vas a validar un JSON con igualdad, `contains` y un esquema de tipos.
 
 ### En qué consiste
 
-Vas a crear `features/m04/match.feature` (tag `@m04 @validaciones`).
+Vas a crear `features/m04/match.feature`.
 
 ### 1 — Background y igualdad
 
-**Acción:** Background: GET `productos/1` hasta `status 200`. Primer Scenario: `nombre == 'Teclado'`, `precio == 25`, `id == '#number'`.
+**Acción:** Crea `src/test/java/features/m04/match.feature` y pega esto:
 
-**Resultado esperado:** `@validaciones` → 1 verde.
+```gherkin
+@m04 @validaciones
+Feature: match sobre un producto
+
+  Background:
+    Given url baseUrl
+    And path 'productos', 1
+    When method get
+    Then status 200
+
+  Scenario: Igualdad estricta de campos conocidos
+    And match response.nombre == 'Teclado'
+    And match response.precio == 25
+    And match response.id == '#number'
+```
+
+El Background deja en `response` el Teclado. `'#number'` comprueba el tipo de `id`, no un valor concreto.
+
+```bash
+mvn test -Dkarate.options="--tags @validaciones"
+```
+
+**Resultado esperado:** 1 verde.
 
 ### 2 — contains y esquema
 
-**Acción:** Scenario con `match response contains { id: 1, categoria: 'periferico' }`. Otro Scenario donde `response ==` un objeto con exactamente `id`, `nombre`, `precio`, `categoria`, `stock` y marcadores de tipo.
+**Acción:** Debajo, pega estos dos Scenario:
 
-**Por qué:** El esquema rompe si el mock añade un campo. Es deliberado.
+```gherkin
+  Scenario: Contiene un subconjunto de campos
+    And match response contains { id: 1, categoria: 'periferico' }
+
+  Scenario: El documento completo respeta el esquema
+    And match response ==
+      """
+      {
+        id: '#number',
+        nombre: '#string',
+        precio: '#number',
+        categoria: '#string',
+        stock: '#number'
+      }
+      """
+```
+
+`contains` mira solo esas dos claves e ignora el resto. `== { ... }` exige **exactamente** esas cinco claves. Si el mock añade un campo, este Scenario se pone rojo.
 
 **Resultado esperado:** 3 verdes.
 
 ### 3 — Romper el esquema
 
-**Acción:** Añade `color: '#string'` al esquema, relanza, mira el fallo, quítalo.
+**Acción:** Dentro del objeto del esquema, añade esta línea y relanza:
+
+```gherkin
+        color: '#string',
+```
+
+Falla porque el Teclado no tiene `color`. Quítala y vuelve a lanzar.
 
 **Resultado esperado:** rojo y otra vez verde.
 
 ### 4 — Esquema de usuaria
 
-**Acción:** Un Scenario que haga GET `usuarios/1` (vuelve a poner `url baseUrl` y el `path`; el Background se quedó en productos) y valide `id` number, `nombre` string, `rol` string, `activo` boolean.
+**Acción:** El Background se quedó en `/productos/1`. En un Scenario nuevo tienes que volver a pedir la URL. Pega esto:
+
+```gherkin
+  Scenario: Esquema de la usuaria
+    Given url baseUrl
+    And path 'usuarios', 1
+    When method get
+    Then status 200
+    And match response ==
+      """
+      {
+        id: '#number',
+        nombre: '#string',
+        rol: '#string',
+        activo: '#boolean'
+      }
+      """
+```
+
+`Given url baseUrl` aquí dentro sustituye el path del Background para este Scenario.
 
 **Resultado esperado:** 4 verdes.
 
 ## Comprueba tu entendimiento
 
-`contains` vs `==` con objeto: el primero ignora claves de más; el segundo no.
+`contains` ignora claves de más. `==` con el objeto del esquema no las ignora: tienen que ser exactamente esas.
 
 ## Reto
 
 ### 1 — Precio positivo
 
-`match` de tipo + `assert response.precio > 0`.
-
-<details>
-<summary>Ver solución</summary>
+Dentro del Scenario de igualdad, pega estas dos líneas:
 
 ```gherkin
-And match response.precio == '#number'
-And assert response.precio > 0
+    And match response.precio == '#number'
+    And assert response.precio > 0
 ```
 
-Si quieres contrastar, en `example` está `features/m04/match.feature`.
-
-</details>
+`assert` es una condición JavaScript. El precio del Teclado es 25, así que pasa.
 
 ## Errores frecuentes
 

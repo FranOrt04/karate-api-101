@@ -14,35 +14,87 @@ Vas a escribir GET contra la tienda con `path` y `param`, y cubrir 200 y 404.
 
 ### En qué consiste
 
-Vas a crear `features/m03/get.feature` y ir añadiendo escenarios, ejecutando `@http-get` cada vez.
+Vas a crear `features/m03/get.feature` y ir pegando escenarios.
 
 ### 1 — Listar productos
 
-**Acción:** Crea `src/test/java/features/m03/get.feature` con tags `@m03 @http-get`. `Background`: `Given url baseUrl`. Primer Scenario: `path 'productos'`, GET, `200`, lista de 3, el `[0].id` es 1.
+**Acción:** Crea `src/test/java/features/m03/get.feature` y pega esto:
 
-**Por qué:** Mismo mock que el smoke, pero ahora el feature es de este módulo.
+```gherkin
+@m03 @http-get
+Feature: Peticiones GET contra la tienda
 
-**Resultado esperado:** `mvn test -Dkarate.options="--tags @http-get"` → 1 escenario verde.
+  Background:
+    Given url baseUrl
+
+  Scenario: Listar todos los productos
+    And path 'productos'
+    When method get
+    Then status 200
+    And match response == '#[3]'
+    And match response[0].id == 1
+```
+
+`url baseUrl` sale de `karate-config.js`. `path 'productos'` (sin barra delante) pide el listado. `'#[3]'` exige 3 elementos.
+
+```bash
+mvn test -Dkarate.options="--tags @http-get"
+```
+
+**Resultado esperado:** 1 escenario verde.
 
 ### 2 — Path y query
 
-**Acción:** Añade un Scenario que pida el producto `2` y compruebe `nombre == 'Monitor'` y `categoria == 'pantalla'`. Otro que filtre `param categoria = 'periferico'` y espere **2** elementos, todos con esa categoría (`match each … contains`).
+**Acción:** Debajo del Scenario anterior, pega estos dos:
 
-**Por qué:** `path` concatena segmentos; `param` va a la query. Orden: path y param **antes** de `method get`.
+```gherkin
+  Scenario: Obtener un producto por path
+    And path 'productos', 2
+    When method get
+    Then status 200
+    And match response.nombre == 'Monitor'
+    And match response.categoria == 'pantalla'
+
+  Scenario: Filtrar por query param
+    And path 'productos'
+    And param categoria = 'periferico'
+    When method get
+    Then status 200
+    And match response == '#[2]'
+    And match each response contains { categoria: 'periferico' }
+```
+
+`path 'productos', 2` arma `/productos/2`. `param categoria = 'periferico'` va a la query (`?categoria=periferico`) y tiene que ir **antes** de `method get`. `match each` recorre los dos resultados.
 
 **Resultado esperado:** 3 escenarios verdes.
 
 ### 3 — 404
 
-**Acción:** GET `productos/999`. Status `404` y `response.mensaje == 'Producto no encontrado'`.
+**Acción:** Pega este Scenario al final:
 
-**Por qué:** Un GET que no existe no es un fallo del test si lo asertas.
+```gherkin
+  Scenario: Producto que no existe
+    And path 'productos', 999
+    When method get
+    Then status 404
+    And match response.mensaje == 'Producto no encontrado'
+```
+
+El 404 aquí es el resultado que esperas, no un fallo del test.
 
 **Resultado esperado:** 4 escenarios verdes. En el informe, el path 2 muestra el JSON del Monitor.
 
 ### 4 — Usuario
 
-**Acción:** Scenario GET `usuarios/1`, `nombre == 'Ana'`.
+**Acción:** Pega este Scenario al final:
+
+```gherkin
+  Scenario: Usuaria por id
+    And path 'usuarios', 1
+    When method get
+    Then status 200
+    And match response.nombre == 'Ana'
+```
 
 **Resultado esperado:** 5 escenarios verdes.
 
@@ -50,22 +102,34 @@ Vas a crear `features/m03/get.feature` y ir añadiendo escenarios, ejecutando `@
 
 **404 de usuario**
 
-GET `usuarios/9` → `404` y mensaje `Usuario no encontrado`.
+Pega este Scenario, lánzalo y déjalo:
+
+```gherkin
+  Scenario: Usuario que no existe
+    And path 'usuarios', 9
+    When method get
+    Then status 404
+    And match response.mensaje == 'Usuario no encontrado'
+```
 
 ## Reto
 
 ### 1 — Filtro vacío
 
-`param categoria = 'audio'`. ¿200 con lista vacía o 404?
+Pega este Scenario:
 
-<details>
-<summary>Ver solución</summary>
+```gherkin
+  Scenario: Categoria que no existe
+    And path 'productos'
+    And param categoria = 'audio'
+    When method get
+    Then status 200
+    And match response == '#[0]'
+```
 
-200 y `response == '#[0]'`. El mock filtra; no hay categoría `audio`.
+`'#[0]'` es una lista vacía. El mock filtra; no hay categoría `audio`, y responde 200, no 404.
 
-Si quieres contrastar, en `example` está `src/test/java/features/m03/get.feature`.
-
-</details>
+**Resultado esperado:** el Scenario queda verde.
 
 ## Errores frecuentes
 

@@ -57,10 +57,27 @@ mvn -q validate
 
 ### 3 — Propiedades y dependencia Karate
 
-**Acción:** Dentro de `<project>`, **antes** de `</project>`, añade:
+**Acción:** Dentro de `<project>`, **antes** de `</project>`, pega esto:
 
-1. `<properties>` con `project.build.sourceEncoding` = `UTF-8`, `java.version` y `maven.compiler.release` = `17`, `karate.version` = `1.4.1`.
-2. `<dependencies>` con **una** dependencia: `com.intuit.karate` / `karate-junit5` / `${karate.version}` / scope **`test`**.
+```xml
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>17</java.version>
+        <maven.compiler.release>17</maven.compiler.release>
+        <karate.version>1.4.1</karate.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-junit5</artifactId>
+            <version>${karate.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+```
+
+`karate.version` fija la 1.4.1. La dependencia es `karate-junit5`, en scope `test`.
 
 ```bash
 mvn -q dependency:resolve
@@ -72,11 +89,44 @@ mvn -q dependency:resolve
 
 ### 4 — testResources, compiler y Surefire
 
-**Acción:** Añade un `<build>` con tres cosas:
+**Acción:** Justo antes de `</project>`, pega este `<build>`:
 
-1. `<testResources>`: directory `src/test/java`, exclude `**/*.java`. **Sin esto Karate no ve los `.feature`.**
-2. Plugin `maven-compiler-plugin` 3.13.0, `<release>` 17, encoding UTF-8.
-3. Plugin `maven-surefire-plugin` 3.2.5, y en `systemPropertyVariables` la clave `karate.options` = `${karate.options}` (así luego `--tags` llega a Karate).
+```xml
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <release>${java.version}</release>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                    <systemPropertyVariables>
+                        <karate.options>${karate.options}</karate.options>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+```
+
+`testResources` copia los `.feature` al classpath y deja fuera los `.java`. Sin ese bloque, Karate no ve los features. `karate.options` es el hueco por el que luego pasan los `--tags`.
 
 ```bash
 mvn -q test-compile
@@ -88,12 +138,23 @@ mvn -q test-compile
 
 ### 5 — Runner
 
-**Acción:** Crea `src/test/java/runners/KarateTest.java`:
+**Acción:** Crea `src/test/java/runners/KarateTest.java` y pega esto:
 
-- `package runners;`
-- import `com.intuit.karate.junit5.Karate`
-- una clase `KarateTest` (sin `public` vale)
-- un método anotado `@Karate.Test` que `return Karate.run("classpath:features");`
+```java
+package runners;
+
+import com.intuit.karate.junit5.Karate;
+
+class KarateTest {
+
+    @Karate.Test
+    Karate testLabs() {
+        return Karate.run("classpath:features");
+    }
+}
+```
+
+`Karate.run("classpath:features")` es la línea que lanza tus `.feature`. El resto es la clase que Surefire necesita para encontrarla.
 
 **Por qué:** Surefire necesita una clase JUnit. Ese `run` es el único Java que escribes en el curso.
 
@@ -101,7 +162,18 @@ mvn -q test-compile
 
 ### 6 — Primer feature
 
-**Acción:** Crea `src/test/java/features/hola.feature` con tag `@m01`. Un Scenario sin HTTP: una variable string y un `match` de igualdad (por ejemplo `mensaje == 'hola'`).
+**Acción:** Crea `src/test/java/features/hola.feature` y pega esto:
+
+```gherkin
+@m01
+Feature: primer feature
+
+  Scenario: un string
+    * def mensaje = 'hola'
+    * match mensaje == 'hola'
+```
+
+`@m01` es el tag. `def` deja la variable. `match` comprueba que vale exactamente `'hola'`. No hay HTTP.
 
 ```bash
 mvn test
@@ -143,3 +215,4 @@ En el mismo Scenario, `match mensaje == '#string'`. Relanza `mvn test`.
 | `mvn test` 0 tests y no aparece Karate | Falta el runner o Surefire no lo ve | `package runners;` y ruta `src/test/java/runners/KarateTest.java` |
 | Karate 1.5 / otro `groupId` | Copiaste internet | `com.intuit.karate` 1.4.1 |
 | `release version 17 not supported` | El JDK del Codespace no es 17 | Recrea el Codespace; `java -version` |
+| **Run** del editor pide PLUS / sign-in | El play del `.feature` es IDE Plus (de pago) | Lanza con `mvn test`; [infra/extension-karate.md](../../infra/extension-karate.md) |

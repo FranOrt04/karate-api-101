@@ -18,46 +18,79 @@ Vas a crear `features/m02/dsl.feature`, lanzarlo, provocar un fallo a propósito
 
 ### 1 — Crear el fichero
 
-**Acción:** Crea la carpeta `src/test/java/features/m02/` y el fichero `dsl.feature`. Primera línea: tag `@m02`. `Feature` con el título que quieras. Un `Background` que defina `iva = 0.21` y una función `conIva` que multiplique el precio por `(1 + iva)`.
+**Acción:** Crea la carpeta `src/test/java/features/m02/` y el fichero `dsl.feature`. Pega esto (todavía sin Scenario):
 
-**Por qué:** El Background se reutiliza en todos los Scenario del fichero. La función la usarás en el reto.
+```gherkin
+@m02
+Feature: DSL de Karate sin HTTP
 
-**Resultado esperado:** el fichero existe y todavía **no** tiene Scenario (o tiene uno a medias). `mvn test -Dkarate.options="--tags @m02"` puede decir 0 escenarios.
+  Background:
+    * def iva = 0.21
+    * def conIva = function(precio){ return precio * (1 + iva) }
+```
+
+`@m02` es el tag con el que lo vas a lanzar. El `Background` se ejecuta antes de cada Scenario: deja `iva` y la función `conIva`.
+
+**Resultado esperado:** el fichero existe y no tiene Scenario. `mvn test -Dkarate.options="--tags @m02"` puede decir 0 escenarios.
 
 ### 2 — Scenario de variables
 
-**Acción:** Añade un Scenario que declare:
+**Acción:** Debajo del Background, pega este Scenario:
 
-- un string `nombre` (`Teclado`)
-- un número `precio` (`25`)
-- un array `etiquetas` de dos strings
-- un objeto `producto` con `nombre`, `precio` y `stock`
+```gherkin
+  Scenario: Variables, tipos y match
+    Given def nombre = 'Teclado'
+    And def precio = 25
+    And def etiquetas = ['periferico', 'usb']
+    And def producto = { nombre: 'Teclado', precio: 25, stock: 10 }
+    Then match nombre == 'Teclado'
+    And match precio == 25
+    And match etiquetas == '#array'
+    And match etiquetas == '#[2]'
+    And match producto == '#object'
+    And match producto.stock == '#number'
+```
 
-Haz `match` de igualdad sobre `nombre` y `precio`, de tipo sobre el array (`#array`, `#[2]`), el objeto (`#object`) y `stock` (`#number`).
-
-**Por qué:** Es el vocabulario que luego aplicarás al JSON de la API.
-
-**Resultado esperado:**
+`def` declara la variable. `== 'Teclado'` y `== 25` comparan el valor. `'#array'`, `'#[2]'`, `'#object'` y `'#number'` comprueban el tipo, no el texto.
 
 ```bash
 mvn test -Dkarate.options="--tags @m02"
 ```
 
-`failed: 0` con 1 escenario.
+**Resultado esperado:** `failed: 0` con 1 escenario.
 
 ### 3 — Ver un match fallar
 
-**Acción:** Cambia el match de `nombre` a `'Raton'`, lanza `@m02`, mira el informe en rojo, y restaura `'Teclado'`.
+**Acción:** En el Scenario, cambia esta línea:
 
-**Por qué:** El informe enseña actual vs esperado. Te conviene verlo **antes** de los GET, para reconocerlo cuando un escenario HTTP falle.
+```gherkin
+    Then match nombre == 'Teclado'
+```
 
-**Resultado esperado:** `BUILD FAILURE` y después otra vez verde.
+por esta:
+
+```gherkin
+    Then match nombre == 'Raton'
+```
+
+Lanza otra vez `@m02`. En el informe verás actual `Teclado` y esperado `Raton`. Restaura `'Teclado'`.
+
+**Resultado esperado:** `BUILD FAILURE` y, al restaurar, otra vez verde.
 
 ### 4 — Marcadores de tipo de más
 
-**Acción:** En el mismo Scenario añade `match producto.nombre == '#string'` y `match etiquetas[0] == '#string'`. Relanza.
+**Acción:** Al final del mismo Scenario, pega estas dos líneas:
 
-**Por qué:** `'#string'` no es el literal de la palabra string.
+```gherkin
+    And match producto.nombre == '#string'
+    And match etiquetas[0] == '#string'
+```
+
+`'#string'` no es la palabra string: es el marcador de «esto es un texto».
+
+```bash
+mvn test -Dkarate.options="--tags @m02"
+```
 
 **Resultado esperado:** sigue verde.
 
@@ -73,22 +106,21 @@ mvn test -Dkarate.options="--tags @m02"
 
 ### 1 — Función `conIva(25)`
 
-Añade un segundo Scenario que llame a `conIva(25)` y compruebe el resultado.
-
-<details>
-<summary>Ver solución</summary>
-
-`25 * 1.21 = 30.25`.
+Debajo del Scenario anterior, pega este:
 
 ```gherkin
-Scenario: IVA de un teclado
-  When def resultado = conIva(25)
-  Then match resultado == 30.25
+  Scenario: IVA de un teclado
+    When def resultado = conIva(25)
+    Then match resultado == 30.25
 ```
 
-Si quieres contrastar, en `example` está `src/test/java/features/m02/dsl.feature` (incluye `conIva(100) == 121`). Más DSL: `src/test/java/examples/m02-expresiones.feature`.
+`conIva` es la función del Background. `25 * 1.21` es `30.25`.
 
-</details>
+```bash
+mvn test -Dkarate.options="--tags @m02"
+```
+
+**Resultado esperado:** 2 escenarios verdes.
 
 ## Errores frecuentes
 

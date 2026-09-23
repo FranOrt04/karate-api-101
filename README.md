@@ -22,6 +22,7 @@ En cada módulo lees el README (qué vas a usar y cómo encaja) y luego entras a
 |-----|--------|
 | Codespace | Fork → **Code → Codespaces → Create codespace on main** ([`.devcontainer/`](.devcontainer/devcontainer.json)) |
 | Comandos Maven | [infra/README.md](infra/README.md) |
+| Run del editor (Plus) | [infra/extension-karate.md](infra/extension-karate.md) |
 | Eclipse (si te lo piden) | [infra/eclipse.md](infra/eclipse.md) |
 
 En `src/test/java/mock/` tienes una API de tienda local. La enchufarás cuando escribas `karate-config.js` (M01-02). No necesitas APIs públicas.

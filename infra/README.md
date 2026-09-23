@@ -25,6 +25,8 @@ ls pom.xml   # todavía no existe: lo creas en M01-01
 
 El informe HTML queda en `target/karate-reports/karate-summary.html`. Ábrelo con Live Preview.
 
+El **Run** que aparece encima del Feature es la extensión de Karate Labs (**IDE Plus**, de pago). El framework que usas con Maven es gratis. Detalle: [extension-karate.md](extension-karate.md).
+
 Si contrastas con un proyecto ya cerrado, está en la rama [`example`](https://github.com/my-it-labs/karate-api-101/tree/example).
 
 ## Puertos
