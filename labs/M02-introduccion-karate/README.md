@@ -36,6 +36,5 @@ En tu feature, el `Background` dejará `iva` y una función `conIva`. Un Scenari
 | Lab | Título | Qué vas a montar |
 |-----|--------|------------------|
 | M02-01 | [DSL, variables y match](M02-01-dsl-variables-match.md) | Crear `dsl.feature` desde cero |
-| M02-02 | [Regex, assert y funciones](M02-02-expresiones.md) | `#regex`, `assert`, función en varias líneas |
 
 → Empieza por **[M02-01 — DSL, variables y match](M02-01-dsl-variables-match.md)**.

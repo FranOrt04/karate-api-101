@@ -41,6 +41,8 @@ Si en un lab te quedas pillado, la rama [`example`](https://github.com/my-it-lab
 | M06 | Data-driven | [labs/M06-data-driven/](labs/M06-data-driven/README.md) |
 | M07 | Mocks | [labs/M07-mocks/](labs/M07-mocks/README.md) |
 
+Cuando cierres M07, si queda tiempo: **[Extensión del temario](labs/extension/README.md)**. No forma parte del recorrido de los módulos.
+
 ## Empieza aquí
 
 → **[M01 — Entorno y proyecto Maven](labs/M01-entorno-codespace/README.md)**

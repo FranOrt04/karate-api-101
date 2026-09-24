@@ -1,8 +1,8 @@
-# M02-02 — Regex, assert y funciones
+# E01 — Regex, assert y funciones
 
-[← Página anterior](M02-01-dsl-variables-match.md) · [Siguiente página →](../M03-peticiones-http/README.md)
+[← Página anterior](README.md) · [Siguiente página →](E02-cabeceras-y-cadena.md)
 
-> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
+> Extensión del temario. El recorrido principal termina en M07. Esto es para cuando ya lo has cerrado.
 
 ### Objetivo
 

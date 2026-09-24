@@ -1,6 +1,6 @@
 # M07 — Mocks
 
-[← Página anterior](../M06-data-driven/M06-02-usuarios-y-tags.md) · [Siguiente página →](M07-01-karate-start.md)
+[← Página anterior](../M06-data-driven/M06-01-tablas-csv-json.md) · [Siguiente página →](M07-01-karate-start.md)
 
 > [!NOTE]
 > Primero ves que un mock es otro feature. En el laboratorio escribes tú el de pedidos y el test que lo arranca.
@@ -36,6 +36,5 @@ En el mock declararás GET `/pedidos/{id}`, POST `/pedidos` y un 404 por defecto
 | Lab | Título | Qué vas a montar |
 |-----|--------|------------------|
 | M07-01 | [karate.start](M07-01-karate-start.md) | Mock de pedidos + feature cliente |
-| M07-02 | [El mock valida](M07-02-contrato-del-mock.md) | POST sin `cantidad` → 400 |
 
 → Empieza por **[M07-01 — karate.start](M07-01-karate-start.md)**.

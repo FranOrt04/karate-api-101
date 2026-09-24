@@ -1,8 +1,8 @@
-# M03-03 — Cabeceras y encadenar
+# E02 — Cabeceras y encadenar
 
-[← Página anterior](M03-02-post-put-patch-delete.md) · [Siguiente página →](../M04-validaciones/README.md)
+[← Página anterior](E01-expresiones.md) · [Siguiente página →](E03-predicados.md)
 
-> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
+> Extensión del temario. El recorrido principal termina en M07. Esto es para cuando ya lo has cerrado.
 
 ### Objetivo
 

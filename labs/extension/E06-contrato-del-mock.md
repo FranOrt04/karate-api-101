@@ -1,8 +1,8 @@
-# M07-02 — El mock también valida
+# E06 — El mock también valida
 
-[← Página anterior](M07-01-karate-start.md) · [Siguiente página →](../../README.md)
+[← Página anterior](E05-usuarios-y-tags.md) · [Siguiente página →](../../README.md)
 
-> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
+> Extensión del temario. El recorrido principal termina en M07. Esto es para cuando ya lo has cerrado.
 
 ### Objetivo
 

@@ -1,8 +1,8 @@
-# M04-03 — Predicados y contains only
+# E03 — Predicados y contains only
 
-[← Página anterior](M04-02-listas-jsonpath.md) · [Siguiente página →](../M05-reutilizacion/README.md)
+[← Página anterior](E02-cabeceras-y-cadena.md) · [Siguiente página →](E04-call-tabla.md)
 
-> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
+> Extensión del temario. El recorrido principal termina en M07. Esto es para cuando ya lo has cerrado.
 
 ### Objetivo
 

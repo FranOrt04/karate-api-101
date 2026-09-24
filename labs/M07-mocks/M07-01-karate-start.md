@@ -1,6 +1,6 @@
 # M07-01 — karate.start
 
-[← Página anterior](README.md) · [Siguiente página →](M07-02-contrato-del-mock.md)
+[← Página anterior](README.md) · [Siguiente página →](../extension/README.md)
 
 > El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 

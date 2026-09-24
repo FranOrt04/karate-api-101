@@ -1,8 +1,8 @@
-# M05-02 — call con una lista
+# E04 — call con una lista
 
-[← Página anterior](M05-01-call-y-config.md) · [Siguiente página →](../M06-data-driven/README.md)
+[← Página anterior](E03-predicados.md) · [Siguiente página →](E05-usuarios-y-tags.md)
 
-> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
+> Extensión del temario. El recorrido principal termina en M07. Esto es para cuando ya lo has cerrado.
 
 ### Objetivo
 

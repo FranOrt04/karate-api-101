@@ -1,8 +1,8 @@
-# M06-02 — Outline de usuarios y tags
+# E05 — Outline de usuarios y tags
 
-[← Página anterior](M06-01-tablas-csv-json.md) · [Siguiente página →](../M07-mocks/README.md)
+[← Página anterior](E04-call-tabla.md) · [Siguiente página →](E06-contrato-del-mock.md)
 
-> El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
+> Extensión del temario. El recorrido principal termina en M07. Esto es para cuando ya lo has cerrado.
 
 ### Objetivo
 

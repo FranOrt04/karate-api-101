@@ -1,6 +1,6 @@
 # M06-01 — Tablas, CSV y JSON
 
-[← Página anterior](README.md) · [Siguiente página →](M06-02-usuarios-y-tags.md)
+[← Página anterior](README.md) · [Siguiente página →](../M07-mocks/README.md)
 
 > El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 

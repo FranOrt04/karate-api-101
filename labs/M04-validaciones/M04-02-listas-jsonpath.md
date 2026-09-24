@@ -1,6 +1,6 @@
 # M04-02 — Listas y JSONPath
 
-[← Página anterior](M04-01-match-y-esquema.md) · [Siguiente página →](M04-03-predicados.md)
+[← Página anterior](M04-01-match-y-esquema.md) · [Siguiente página →](../M05-reutilizacion/README.md)
 
 > El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 

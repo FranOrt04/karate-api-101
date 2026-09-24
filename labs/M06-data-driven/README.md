@@ -1,6 +1,6 @@
 # M06 — Data-driven
 
-[← Página anterior](../M05-reutilizacion/M05-02-call-tabla.md) · [Siguiente página →](M06-01-tablas-csv-json.md)
+[← Página anterior](../M05-reutilizacion/M05-01-call-y-config.md) · [Siguiente página →](M06-01-tablas-csv-json.md)
 
 > [!NOTE]
 > Primero ves cómo un Outline recorre filas. En el laboratorio montas tú la tabla, el CSV y el JSON.
@@ -33,6 +33,5 @@ Un Outline embebido recorrerá los tres productos. Otro leerá `productos.csv` (
 | Lab | Título | Qué vas a montar |
 |-----|--------|------------------|
 | M06-01 | [Tablas, CSV y JSON](M06-01-tablas-csv-json.md) | Outlines y ficheros de datos |
-| M06-02 | [Usuarios y tags](M06-02-usuarios-y-tags.md) | Outline de `/usuarios` y `@m06 and @ddt-tabla` |
 
 → Empieza por **[M06-01 — Tablas, CSV y JSON](M06-01-tablas-csv-json.md)**.

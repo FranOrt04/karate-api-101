@@ -1,6 +1,6 @@
 # M04 — Validaciones
 
-[← Página anterior](../M03-peticiones-http/M03-03-cabeceras-y-cadena.md) · [Siguiente página →](M04-01-match-y-esquema.md)
+[← Página anterior](../M03-peticiones-http/M03-02-post-put-patch-delete.md) · [Siguiente página →](M04-01-match-y-esquema.md)
 
 > [!NOTE]
 > Primero ves cómo `match` describe la **forma** del JSON. En el laboratorio lo escribes tú sobre productos y listas.
@@ -36,6 +36,5 @@ Un GET a `/productos/1` en el Background te dejará el Teclado. Sobre esa respue
 |-----|--------|------------------|
 | M04-01 | [match y esquema](M04-01-match-y-esquema.md) | `match.feature` |
 | M04-02 | [Listas y JSONPath](M04-02-listas-jsonpath.md) | `listas.feature` |
-| M04-03 | [Predicados](M04-03-predicados.md) | `#?`, `#regex` y `contains only` |
 
 → Empieza por **[M04-01 — match y esquema](M04-01-match-y-esquema.md)**.
