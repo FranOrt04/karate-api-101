@@ -1,6 +1,6 @@
 # M05-01 — call y config
 
-[← Página anterior](README.md) · [Siguiente página →](../M06-data-driven/README.md)
+[← Página anterior](README.md) · [Siguiente página →](M05-02-call-tabla.md)
 
 > El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 

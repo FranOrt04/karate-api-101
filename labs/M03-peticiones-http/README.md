@@ -1,6 +1,6 @@
 # M03 — Peticiones HTTP
 
-[← Página anterior](../M02-introduccion-karate/M02-01-dsl-variables-match.md) · [Siguiente página →](M03-01-get-path-params.md)
+[← Página anterior](../M02-introduccion-karate/M02-02-expresiones.md) · [Siguiente página →](M03-01-get-path-params.md)
 
 > [!NOTE]
 > Primero ves cómo se arma un GET/POST. En el laboratorio escribes tú los features contra la tienda.
@@ -42,5 +42,6 @@ Vas a escribir un feature de GET: listar `/productos`, pedir el id 2, filtrar po
 |-----|--------|------------------|
 | M03-01 | [GET, path y params](M03-01-get-path-params.md) | `get.feature` |
 | M03-02 | [POST PUT PATCH DELETE](M03-02-post-put-patch-delete.md) | `write.feature` |
+| M03-03 | [Cabeceras y encadenar](M03-03-cabeceras-y-cadena.md) | `header` y un GET que usa el `id` del anterior |
 
 → Empieza por **[M03-01 — GET, path y params](M03-01-get-path-params.md)**.

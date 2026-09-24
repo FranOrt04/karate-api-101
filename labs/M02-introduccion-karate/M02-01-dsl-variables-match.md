@@ -1,6 +1,6 @@
 # M02-01 — DSL, variables y match
 
-[← Página anterior](README.md) · [Siguiente página →](../M03-peticiones-http/README.md)
+[← Página anterior](README.md) · [Siguiente página →](M02-02-expresiones.md)
 
 > El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 

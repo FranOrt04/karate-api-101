@@ -1,6 +1,6 @@
 # M05 — Reutilización (`call`)
 
-[← Página anterior](../M04-validaciones/M04-02-listas-jsonpath.md) · [Siguiente página →](M05-01-call-y-config.md)
+[← Página anterior](../M04-validaciones/M04-03-predicados.md) · [Siguiente página →](M05-01-call-y-config.md)
 
 > [!NOTE]
 > Primero ves cómo extraer un GET a un helper. En el laboratorio lo escribes tú y lo llamas con `call`.
@@ -32,5 +32,6 @@ El helper usará `baseUrl` y `path 'productos', id`. Tu feature lo llamará dos 
 | Lab | Título | Qué vas a montar |
 |-----|--------|------------------|
 | M05-01 | [call y config](M05-01-call-y-config.md) | Helper + `call.feature` |
+| M05-02 | [call con una lista](M05-02-call-tabla.md) | Un `call` con varios `id` |
 
 → Empieza por **[M05-01 — call y config](M05-01-call-y-config.md)**.

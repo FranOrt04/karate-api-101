@@ -1,6 +1,6 @@
 # M03-02 — POST PUT PATCH DELETE
 
-[← Página anterior](M03-01-get-path-params.md) · [Siguiente página →](../M04-validaciones/README.md)
+[← Página anterior](M03-01-get-path-params.md) · [Siguiente página →](M03-03-cabeceras-y-cadena.md)
 
 > El concepto está en el [README del módulo](README.md). Aquí lo montas tú.
 
