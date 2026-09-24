@@ -71,7 +71,7 @@ Feature: Mock de la API de tienda (laboratorio local)
 
   Scenario: pathMatches('/eco') && methodIs('get')
     * def curso = requestHeaders['x-curso'] ? requestHeaders['x-curso'][0] : ''
-    * def response = { eco: curso }
+    * def response = { eco: '#(curso)' }
 
   Scenario: pathMatches('/usuarios/{id}') && methodIs('get')
     * def id = parseInt(pathParams.id)
